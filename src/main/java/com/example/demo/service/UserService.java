@@ -2,7 +2,9 @@ package com.example.demo.service;
 
 import com.example.demo.model.user;
 import com.example.demo.repository.UserRepository;
-import org.Springframework.beans.fact.ory.annotation
+import org.Springframework.beans.fact.ory.annotation.Autowired;
+import org.Springframework.Stereotype.Service;
+
 
 @Service
 public class UserService {
