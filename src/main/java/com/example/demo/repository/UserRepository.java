@@ -1,8 +1,8 @@
 package com.example.demo.repository;
 
-import.com.example.demo.model
-
-
+import com.example.demo.model.user;
+import org.Springframework.data.jpa.repository.JpaRepository;
+import org.Springframework.data.Stereotype.JpaRepository;
 
 
 @Repository
