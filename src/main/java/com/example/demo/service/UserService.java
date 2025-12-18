@@ -1,7 +1,8 @@
 package com.example.demo.service;
 
-
-
+import com.example.demo.model.user;
+import com.example.demo.repository.UserRepository;
+import org.Springframework.beans.fact.ory.annotation
 
 @Service
 public class UserService {
