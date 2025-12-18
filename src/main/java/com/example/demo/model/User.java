@@ -39,4 +39,22 @@ public void setUsername(String username) {
     this.username = username;
 }
 
-public String 
+public String getPassword() {
+    return password;
+}
+
+public void setPassword(String password) {
+    this.password;
+}
+
+public String getemail() {
+    return email;
+}
+
+public void setemail( String email) {
+    this.email;
+}
+
+
+
+    
