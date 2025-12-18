@@ -15,6 +15,6 @@ public class UserService {
     }
 
     public User save(User user) {
-        return useRepository.save
+        return useRepository.save(user);
     }
 }
