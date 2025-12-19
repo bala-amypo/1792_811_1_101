@@ -7,4 +7,11 @@ import java.time.LocalDate;
 @Table(name = "inventory")
 public class Inventory {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String product name;
+    private int currentStock;
+    private int minimumStock;
+    
+
 }
