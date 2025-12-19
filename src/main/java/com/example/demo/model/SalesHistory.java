@@ -8,5 +8,11 @@ import java.time.LocalDate;
 public class SalesHistory {
 
     @Id
-    @GeneratedValue(stra)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Id;
+    private Long inventoryId;
+    private int quantitySold;
+    private LocalDate saleDate;
+
+    pulicSaleHistory()
 }
