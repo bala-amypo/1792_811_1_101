@@ -52,11 +52,13 @@ public class Inventory {
     }
 
     public LocalDate getlocalRestockDate() {
-        return 
+        return localRestockDate;
     }
 
-
-
+    public void setlocalRestockDate() {
+        this.localRestockDate = localRestockDate;
     }
+
+ }
 
 
