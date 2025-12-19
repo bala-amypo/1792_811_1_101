@@ -48,4 +48,30 @@ public class Inventory {
     }
     
     public void setProductName(String productName) {
-        this.p
+        this.productName = productName;
+    }
+
+    public int getCurrentStock() {
+        return currentStock;
+    }
+    
+    public void setCurrentStock(int currentStock) {
+        this.currentStock = currentStock;
+    }
+
+    public int getMinimumStock() {
+        return minimumStock;
+    }
+    
+    public void setMinimumStock(int minimumStock) {
+        this.minimumStock = minimumStock;
+    }
+
+    public LocalDate getLastRestockDate() {
+        return lastRestockDate;
+    }
+
+    public void setLastRestockDate(LocalDate lastRestockDate) {
+        this.lastRestockDate = lastRestockDate;
+    }
+}
