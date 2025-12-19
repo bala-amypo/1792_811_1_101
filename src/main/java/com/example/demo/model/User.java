@@ -43,9 +43,10 @@ public User(String username, String password, String email) {
          return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword (String password) {
          this.password;
     }
+    
 
      public String getemail() {
          return email;
