@@ -30,7 +30,12 @@ public class Inventory {
     public String getProductName() {
         return productname;
     }
-    
+
+    public void setProductName() {
+        this.productname = productname;
+    }
+
+    public int getCurrentStock
     
     
 
