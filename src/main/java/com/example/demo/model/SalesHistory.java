@@ -41,5 +41,12 @@ public class SalesHistory {
         this quantitySold = quantitySold;
     }
 
-    public 
+    public LocalDate getSaleDate() {
+        return saleDate;
+    }
+
+    public void setSaleDate(LocalDate saleDate) {
+        this.saleDate = saleDate
+    }
+    
 }
