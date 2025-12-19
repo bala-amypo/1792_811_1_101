@@ -1,25 +1,26 @@
-pacakage com.example.inventory.entity;
+package com.example.inventory.entity;
 
-import jakarta.prsistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "sales_history")
 public class SalesHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
+
     private Long inventoryId;
     private int quantitySold;
     private LocalDate saleDate;
 
-    pulicSaleHistory() {}
+    public SalesHistory() {}
 
-    public SalesHistory(Long inventoryId, int quantitySold, LocalDate SaleDate) {
-    this.inventoryId = inventoryid;
-    this.quantitySold = quantitysold;
-    this.saleDate = saledate;
+    public SalesHistory(Long inventoryId, int quantitySold, LocalDate saleDate) {
+        this.inventoryId = inventoryId;
+        this.quantitySold = quantitySold;
+        this.saleDate = saleDate;
+    }
 
     public Long getId() {
         return id;
@@ -33,12 +34,12 @@ public class SalesHistory {
         this.inventoryId = inventoryId;
     }
 
-    public int getQantitySold() {
+    public int getQuantitySold() {
         return quantitySold;
     }
 
     public void setQuantitySold(int quantitySold) {
-        this quantitySold = quantitySold;
+        this.quantitySold = quantitySold;
     }
 
     public LocalDate getSaleDate() {
@@ -46,7 +47,6 @@ public class SalesHistory {
     }
 
     public void setSaleDate(LocalDate saleDate) {
-        this.saleDate = saleDate
+        this.saleDate = saleDate;
     }
-    
 }

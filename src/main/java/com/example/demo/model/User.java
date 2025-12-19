@@ -1,63 +1,64 @@
-package com.example.demo.model;
+package com.example.inventory.entity;
 
-import jakarta.presistence.Entity;
-import jakarta.presistence.GeneratedValue;
-import jakarta.presistence.GeneratedType;
-import jakarta.presistence.Id;
-
-
+import jakarta.persistence.*;
 
 @Entity
-public class  user {
+@Table(name = "users")
+public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
-    private String name;
-    private String password;
-    private String email;
-}
+    private Long id;
 
-public User(String username, String password, String email) {
-    this.username = username;
-     this.password = password;
-    this.email = email;
+    @Column(nullable = false, unique = true)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
+
+    private String role;
+
+    // No-arg constructor (REQUIRED by JPA)
+    public User() {
     }
 
+    // Parameterized constructor
+    public User(String username, String password, String role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+
+    // Getters and Setters
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
-       this.id = id;
+        this.id = id;
     }
 
     public String getUsername() {
         return username;
     }
-
-     public void setUsername(String username) {
+    
+    public void setUsername(String username) {
         this.username = username;
     }
 
-     public String getPassword() {
-         return password;
-    }
-
-    public void setPassword (String password) {
-         this.password;
+    public String getPassword() {
+        return password;
     }
     
-
-     public String getemail() {
-         return email;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-     public void setemail( String email) {
-          this.email;
+    public String getRole() {
+        return role;
     }
-
+    
+    public void setRole(String role) {
+        this.role = role;
+    }
 }
-
-
-
-    
