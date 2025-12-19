@@ -1,11 +1,12 @@
-package com.example.demo.repository;
+package com.example.inventory.repository;
 
-import com.example.demo.model.user;
-import org.Springframework.data.jpa.repository.JpaRepository;
-import org.Springframework.data.Stereotype.JpaRepository;
+import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
+import com.example.inventory.entity.User;
+
 public interface UserRepository extends JpaRepository<User, Long> {
-    UserfindByUsername( String username);
+
+    Optional<User> findByUsername(String username);
 }
