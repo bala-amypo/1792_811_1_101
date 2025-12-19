@@ -1,4 +1,4 @@
-package com.example.inventory.repository;
+package com.example.demo.repository;
 
 import java.util.Optional;
 
