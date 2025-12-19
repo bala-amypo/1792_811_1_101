@@ -16,6 +16,10 @@ public class Inventory {
 
     public Inventory() {}
 
-    public Inventory{String produvtName, int }
+    public Inventory(String productName, int currentStock, int minimumstock) {
+        this.productName = productName;
+        this.
+    }
+    }
 
 }
