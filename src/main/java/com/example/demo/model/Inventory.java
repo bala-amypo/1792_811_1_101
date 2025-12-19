@@ -36,17 +36,21 @@ public class Inventory {
     }
 
     public int getCurrentStock() {
-        return currentstock;
+        return currentStock;
     }
 
-    public int setCurrentStock(String currentStock) {
+    public int setCurrentStock(int currentStock) {
         this.currentStock;
     }
     
     public int getMinimumStock() {
-        return.
+        return minimumStock;
     }
     
+    public int setminimumStock(int minimumStock) {
+        this.minimumStock;
+    }
+
 
 
     }
