@@ -37,22 +37,24 @@ public User(String username, String password, String email) {
 
      public void setUsername(String username) {
         this.username = username;
-}
+    }
 
      public String getPassword() {
          return password;
-}
+    }
 
     public void setPassword(String password) {
          this.password;
-}
+    }
 
      public String getemail() {
          return email;
-}
+    }
 
      public void setemail( String email) {
           this.email;
+    }
+
 }
 
 
