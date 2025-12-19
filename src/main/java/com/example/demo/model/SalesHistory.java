@@ -33,5 +33,13 @@ public class SalesHistory {
         this.inventoryId = inventoryId;
     }
 
-    
+    public int getQantitySold() {
+        return quantitySold;
+    }
+
+    public void setQuantitySold(int quantitySold) {
+        this quantitySold = quantitySold;
+    }
+
+    public 
 }
