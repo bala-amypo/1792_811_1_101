@@ -35,8 +35,15 @@ public class Inventory {
         this.productname = productname;
     }
 
-    public int getCurrentStock
+    public int getCurrentStock() {
+        return currentstock;
+    }
+
+    public int setCurrentStock() {
+        this.currentStock;
+    }
     
+    public int 
     
 
 
