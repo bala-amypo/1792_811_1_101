@@ -31,7 +31,7 @@ public class Inventory {
         return productname;
     }
 
-    public void setProductName() {
+    public void setProductName(String productName) {
         this.productname = productname;
     }
 
@@ -39,11 +39,13 @@ public class Inventory {
         return currentstock;
     }
 
-    public int setCurrentStock() {
+    public int setCurrentStock(String currentStock) {
         this.currentStock;
     }
     
-    public int 
+    public int getMinimumStock() {
+        return.
+    }
     
 
 
