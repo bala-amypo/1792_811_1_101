@@ -12,15 +12,15 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    // Constructor Injection
+    
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    // Register new user
+   
     public User register(User user) {
 
-        // Basic validation
+        
         if (user.getUsername() == null || user.getUsername().isEmpty()) {
             throw new InvalidRequestException("Username cannot be empty");
         }
@@ -29,12 +29,12 @@ public class UserService {
             throw new InvalidRequestException("Password cannot be empty");
         }
 
-        // Check if user already exists
+       
         if (userRepository.findByUsername(user.getUsername()).isPresent()) {
             throw new InvalidRequestException("Username already exists");
         }
 
-        // Default role
+        
         if (user.getRole() == null) {
             user.setRole("USER");
         }
@@ -42,7 +42,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    // Fetch user by username
+    
     public User getByUsername(String username) {
 
         return userRepository.findByUsername(username)
