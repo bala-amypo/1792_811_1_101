@@ -12,6 +12,10 @@ public class Inventory {
     private String product name;
     private int currentStock;
     private int minimumStock;
-    
+    private LocalDate lastRestockDate;
+
+    public Inventory() {}
+
+    public Inventory{String produvtName, int }
 
 }
