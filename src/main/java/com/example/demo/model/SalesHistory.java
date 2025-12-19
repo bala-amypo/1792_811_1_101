@@ -17,6 +17,17 @@ public class SalesHistory {
     pulicSaleHistory() {}
 
     public SalesHistory(Long inventoryId, int quantitySold, LocalDate SaleDate) {
-    this.inventoryd = inventoryid;
-    this.quantitySold
+    this.inventoryId = inventoryid;
+    this.quantitySold = quantitysold;
+    this.saleDate = saledate;
+
+    public Long getId() {
+        return id;
+    }
+
+    public Long getInventoryId() {
+        return inventoryid;
+    }
+
+    public void setInventoryId()
 }
