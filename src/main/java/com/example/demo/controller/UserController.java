@@ -17,14 +17,14 @@ public class UserController {
         this.userService = userService;
     }
 
-    // ✅ Register new user
+    
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) {
         User savedUser = userService.register(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
-    // ✅ Get user by username
+    
     @GetMapping("/{username}")
     public ResponseEntity<User> getByUsername(@PathVariable String username) {
         User user = userService.getByUsername(username);
