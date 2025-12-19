@@ -18,8 +18,16 @@ public class Inventory {
 
     public Inventory(String productName, int currentStock, int minimumstock) {
         this.productName = productName;
-        this.
+        this.currentStock = currentStock;
+        this.minimumStock = minimumStock;
+        this.lastRestockDate = lastRestockSate;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void
     }
 
 }
