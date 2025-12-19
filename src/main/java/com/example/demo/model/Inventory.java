@@ -27,7 +27,14 @@ public class Inventory {
         return id;
     }
 
-    public void
+    public String getProductName() {
+        return productname;
+    }
+    
+    
+    
+
+
     }
 
-}
+
