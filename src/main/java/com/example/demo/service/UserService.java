@@ -19,8 +19,6 @@ public class UserService {
 
    
     public User register(User user) {
-
-        
         if (user.getUsername() == null || user.getUsername().isEmpty()) {
             throw new InvalidRequestException("Username cannot be empty");
         }
@@ -34,7 +32,6 @@ public class UserService {
             throw new InvalidRequestException("Username already exists");
         }
 
-        
         if (user.getRole() == null) {
             user.setRole("USER");
         }
