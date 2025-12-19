@@ -39,7 +39,7 @@ public class Inventory {
         return currentStock;
     }
 
-    public int setCurrentStock(int currentStock) {
+    public void setCurrentStock(int currentStock) {
         this.currentStock;
     }
     
@@ -47,8 +47,12 @@ public class Inventory {
         return minimumStock;
     }
     
-    public int setminimumStock(int minimumStock) {
+    public void setminimumStock(int minimumStock) {
         this.minimumStock;
+    }
+
+    public LocalDate getlocalRestockDate() {
+        return 
     }
 
 
