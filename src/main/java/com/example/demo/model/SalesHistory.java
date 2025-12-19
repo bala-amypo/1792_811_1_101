@@ -26,8 +26,12 @@ public class SalesHistory {
     }
 
     public Long getInventoryId() {
-        return inventoryid;
+        return inventoryId;
     }
 
-    public void setInventoryId()
+    public void setInventoryId(Long inventoryId) {
+        this.inventoryId = inventoryId;
+    }
+
+    
 }

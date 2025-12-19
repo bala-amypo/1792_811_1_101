@@ -28,11 +28,11 @@ public class Inventory {
     }
 
     public String getProductName() {
-        return productname;
+        return productName;
     }
 
     public void setProductName(String productName) {
-        this.productname = productname;
+        this.productName = productName;
     }
 
     public int getCurrentStock() {
@@ -40,7 +40,7 @@ public class Inventory {
     }
 
     public void setCurrentStock(int currentStock) {
-        this.currentStock;
+        this.currentStock = currentStock
     }
     
     public int getMinimumStock() {
@@ -48,7 +48,7 @@ public class Inventory {
     }
     
     public void setminimumStock(int minimumStock) {
-        this.minimumStock;
+        this.minimumStock = minimumStock
     }
 
     public LocalDate getlocalRestockDate() {
