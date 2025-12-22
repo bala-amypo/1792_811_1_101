@@ -18,18 +18,18 @@ public class User {
 
     private String role;
 
-    // No-arg constructor (REQUIRED by JPA)
+  
     public User() {
     }
 
-    // Parameterized constructor
+    
     public User(String username, String password, String role) {
         this.username = username;
         this.password = password;
         this.role = role;
     }
 
-    // Getters and Setters
+    
     public Long getId() {
         return id;
     }

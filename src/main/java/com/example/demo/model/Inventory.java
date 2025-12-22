@@ -22,7 +22,7 @@ public class Inventory {
 
     private LocalDate lastRestockDate;
 
-    // No-arg constructor (required by JPA)
+    
     public Inventory() {
     }
 
@@ -34,7 +34,7 @@ public class Inventory {
         this.lastRestockDate = LocalDate.now();
     }
 
-    // Getters and Setters
+   
     public Long getId() {
         return id;
     }
