@@ -1,8 +1,8 @@
-package com.example.smartinventoryrestockpredictor.service;
+package com.example.demo.service;
 
-import com.example.smartinventoryrestockpredictor.dto.AuthRequest;
-import com.example.smartinventoryrestockpredictor.dto.UserRegisterDto;
-import com.example.smartinventoryrestockpredictor.entity.User;
+import com.example.demo.dto.AuthRequest;
+import com.example.demo.dto.UserRegisterDto;
+import com.example.demo.entity.User;
 
 public interface UserService {
 
