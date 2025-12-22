@@ -3,45 +3,45 @@ package com.example.demo.controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.example.demo.entity.User;
-import com.example.demo.service.UserService;
+import com.example.demo.entity.SalesHistory;
+import com.example.demo.service.SalesHistoryService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
-public class UserController {
+@RequestMapping("/api/sales")
+public class SalesHistoryController {
 
     @Autowired
-    private UserService userService;
+    private SalesHistoryService salesHistoryService;
 
-    // CREATE / REGISTER USER
-    @PostMapping("/register")
-    public User addUser(@RequestBody User user) {
-        return userService.addUser(user);
+    // CREATE / ADD SALES HISTORY
+    @PostMapping("/add")
+    public SalesHistory addSalesHistory(@RequestBody SalesHistory salesHistory) {
+        return salesHistoryService.addSalesHistory(salesHistory);
     }
 
-    // READ ALL USERS
+    // READ ALL SALES HISTORY
     @GetMapping("/all")
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    public List<SalesHistory> getAllSalesHistory() {
+        return salesHistoryService.getAllSalesHistory();
     }
 
-    // READ USER BY ID
+    // READ SALES HISTORY BY ID
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Integer id) {
-        return userService.getUserById(id);
+    public SalesHistory getSalesHistoryById(@PathVariable Integer id) {
+        return salesHistoryService.getSalesHistoryById(id);
     }
 
-    // UPDATE USER
+    // UPDATE SALES HISTORY
     @PutMapping("/update/{id}")
-    public User updateUser(@PathVariable Integer id, @RequestBody User user) {
-        return userService.updateUser(id, user);
+    public SalesHistory updateSalesHistory(@PathVariable Integer id, @RequestBody SalesHistory salesHistory) {
+        return salesHistoryService.updateSalesHistory(id, salesHistory);
     }
 
-    // DELETE USER
+    // DELETE SALES HISTORY
     @DeleteMapping("/delete/{id}")
-    public User deleteUser(@PathVariable Integer id) {
-        return userService.deleteUser(id);
+    public SalesHistory deleteSalesHistory(@PathVariable Integer id) {
+        return salesHistoryService.deleteSalesHistory(id);
     }
 }
