@@ -1,12 +1,12 @@
-package com.example.demo.repository;
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
 
-import com.example.demo.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+    @Autowired
+    UserService service;
 
-import java.util.Optional;
-
-@Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByUsername(String username);
+    @PostMapping("/register")
+    public User register(@RequestBody User u) {
+        return service.register(u);
+    }
 }
