@@ -32,7 +32,7 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    public Inventory updateInventory(Long id, Inventory inventory) {
+    public Inventory (Long id, Inventory inventory) {
         inventory.setId(id);
         return repository.save(inventory);
     }

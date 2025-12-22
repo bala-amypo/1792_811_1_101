@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SalesHistoryServiceImpl implements SalesHistoryService {
+public class SalesHistorySerImpl implements SalesHistoryService {
 
     private final SalesHistoryRepository repository;
 
