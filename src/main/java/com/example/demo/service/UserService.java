@@ -1,44 +1,17 @@
 package com.example.demo.service;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-
-import org.springframework.stereotype.Service;
-
 import com.example.demo.entity.User;
+import java.util.List;
 
-@Service
-public class UserService {
+public interface UserService {
 
-    // In-memory storage
-    private Map<Long, User> users = new HashMap<>();
+    User createUser(User user);
 
-    // CREATE
-    public User addUser(User user) {
-        users.put(user.getId(), user);
-        return user;
-    }
+    List<User> getAllUsers();
 
-    // READ ALL
-    public List<User> getAllUsers() {
-        return new ArrayList<>(users.values());
-    }
+    User getUserById(Long id);
 
-    // READ BY ID
-    public User getUserById(Long id) {
-        return users.get(id);
-    }
+    User updateUser(Long id, User user);
 
-    // UPDATE
-    public User updateUser(Long id, User user) {
-        users.put(id, user);
-        return user;
-    }
-
-    // DELETE
-    public User deleteUser(Long id) {
-        return users.remove(id);
-    }
+    void deleteUser(Long id);
 }

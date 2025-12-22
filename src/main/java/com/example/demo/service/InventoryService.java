@@ -1,44 +1,17 @@
 package com.example.demo.service;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-
-import org.springframework.stereotype.Service;
-
 import com.example.demo.entity.Inventory;
+import java.util.List;
 
-@Service
-public class InventoryService {
+public interface InventoryService {
 
-    // In-memory storage
-    private Map<Long, Inventory> inventoryMap = new HashMap<>();
+    Inventory createInventory(Inventory inventory);
 
-    // CREATE
-    public Inventory addInventory(Inventory inventory) {
-        inventoryMap.put(inventory.getId(), inventory);
-        return inventory;
-    }
+    List<Inventory> getAllInventory();
 
-    // READ ALL
-    public List<Inventory> getAllInventory() {
-        return new ArrayList<>(inventoryMap.values());
-    }
+    Inventory getInventoryById(Long id);
 
-    // READ BY ID
-    public Inventory getInventoryById(Long id) {
-        return inventoryMap.get(id);
-    }
+    Inventory updateInventory(Long id, Inventory inventory);
 
-    // UPDATE
-    public Inventory updateInventory(Long id, Inventory inventory) {
-        inventoryMap.put(id, inventory);
-        return inventory;
-    }
-
-    // DELETE
-    public Inventory deleteInventory(Long id) {
-        return inventoryMap.remove(id);
-    }
+    void deleteInventory(Long id);
 }
