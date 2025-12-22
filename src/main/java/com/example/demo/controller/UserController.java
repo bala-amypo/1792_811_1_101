@@ -1,10 +1,8 @@
 package com.example.demo.controller;
 
-import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.example.demo.entity.User;
-import com.example.demo.service.UserService;
+import com.example.demo.repository.UserRepository;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -12,36 +10,35 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserRepository userRepository;
 
-    // CREATE / REGISTER USER
-    @PostMapping("/register")
-    public User addUser(@RequestBody User user) {
-        return userService.addUser(user);
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    // READ ALL USERS
-    @GetMapping("/all")
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    @PostMapping
+    public User create(@RequestBody User user) {
+        return userRepository.save(user);
     }
 
-    // READ USER BY ID
+    @GetMapping
+    public List<User> getAll() {
+        return userRepository.findAll();
+    }
+
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Integer id) {
-        return userService.getUserById(id);
+    public User getById(@PathVariable Long id) {
+        return userRepository.findById(id).orElse(null);
     }
 
-    // UPDATE USER
-    @PutMapping("/update/{id}")
-    public User updateUser(@PathVariable Integer id, @RequestBody User user) {
-        return userService.updateUser(id, user);
+    @PutMapping("/{id}")
+    public User update(@PathVariable Long id, @RequestBody User user) {
+        user.setId(id);
+        return userRepository.save(user);
     }
 
-    // DELETE USER
-    @DeleteMapping("/delete/{id}")
-    public User deleteUser(@PathVariable Integer id) {
-        return userService.deleteUser(id);
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        userRepository.deleteById(id);
     }
 }

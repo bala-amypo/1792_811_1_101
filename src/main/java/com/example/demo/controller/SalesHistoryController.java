@@ -1,10 +1,8 @@
 package com.example.demo.controller;
 
-import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.example.demo.entity.SalesHistory;
-import com.example.demo.service.SalesHistoryService;
+import com.example.demo.repository.SalesHistoryRepository;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -12,36 +10,35 @@ import java.util.List;
 @RequestMapping("/api/sales")
 public class SalesHistoryController {
 
-    @Autowired
-    private SalesHistoryService salesHistoryService;
+    private final SalesHistoryRepository salesHistoryRepository;
 
-    // CREATE / ADD SALES HISTORY
-    @PostMapping("/add")
-    public SalesHistory addSalesHistory(@RequestBody SalesHistory salesHistory) {
-        return salesHistoryService.addSalesHistory(salesHistory);
+    public SalesHistoryController(SalesHistoryRepository salesHistoryRepository) {
+        this.salesHistoryRepository = salesHistoryRepository;
     }
 
-    // READ ALL SALES HISTORY
-    @GetMapping("/all")
-    public List<SalesHistory> getAllSalesHistory() {
-        return salesHistoryService.getAllSalesHistory();
+    @PostMapping
+    public SalesHistory create(@RequestBody SalesHistory history) {
+        return salesHistoryRepository.save(history);
     }
 
-    // READ SALES HISTORY BY ID
+    @GetMapping
+    public List<SalesHistory> getAll() {
+        return salesHistoryRepository.findAll();
+    }
+
     @GetMapping("/{id}")
-    public SalesHistory getSalesHistoryById(@PathVariable Integer id) {
-        return salesHistoryService.getSalesHistoryById(id);
+    public SalesHistory getById(@PathVariable Long id) {
+        return salesHistoryRepository.findById(id).orElse(null);
     }
 
-    // UPDATE SALES HISTORY
-    @PutMapping("/update/{id}")
-    public SalesHistory updateSalesHistory(@PathVariable Integer id, @RequestBody SalesHistory salesHistory) {
-        return salesHistoryService.updateSalesHistory(id, salesHistory);
+    @PutMapping("/{id}")
+    public SalesHistory update(@PathVariable Long id, @RequestBody SalesHistory history) {
+        history.setId(id);
+        return salesHistoryRepository.save(history);
     }
 
-    // DELETE SALES HISTORY
-    @DeleteMapping("/delete/{id}")
-    public SalesHistory deleteSalesHistory(@PathVariable Integer id) {
-        return salesHistoryService.deleteSalesHistory(id);
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        salesHistoryRepository.deleteById(id);
     }
 }
