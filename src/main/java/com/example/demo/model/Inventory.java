@@ -26,7 +26,7 @@ public class Inventory {
     public Inventory() {
     }
 
-    // Parameterized constructor
+   
     public Inventory(String productName, int currentStock, int minimumStock) {
         this.productName = productName;
         this.currentStock = currentStock;

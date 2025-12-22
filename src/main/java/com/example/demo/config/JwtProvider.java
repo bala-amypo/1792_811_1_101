@@ -21,12 +21,12 @@ public class JwtProvider {
     @Value("${jwt.expiration}")
     private long jwtExpiration;
 
-    // 🔑 Create signing key
+    
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(jwtSecret.getBytes());
     }
 
-    // ✅ Generate JWT token
+    
     public String generateToken(UserDetails userDetails) {
 
         return Jwts.builder()
@@ -38,26 +38,26 @@ public class JwtProvider {
                 .compact();
     }
 
-    // ✅ Extract username from token
+   
     public String extractUsername(String token) {
         return extractAllClaims(token).getSubject();
     }
 
-    // ✅ Validate token
+    
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return username.equals(userDetails.getUsername())
                 && !isTokenExpired(token);
     }
 
-    // 🔍 Check expiration
+    
     private boolean isTokenExpired(String token) {
         return extractAllClaims(token)
                 .getExpiration()
                 .before(new Date());
     }
 
-    // 🔐 Parse claims
+   
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
