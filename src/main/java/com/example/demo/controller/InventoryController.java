@@ -1,10 +1,8 @@
 package com.example.demo.controller;
 
-import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.example.demo.entity.Inventory;
-import com.example.demo.service.InventoryService;
+import com.example.demo.repository.InventoryRepository;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -12,36 +10,35 @@ import java.util.List;
 @RequestMapping("/api/inventory")
 public class InventoryController {
 
-    @Autowired
-    private InventoryService inventoryService;
+    private final InventoryRepository inventoryRepository;
 
-    // CREATE
-    @PostMapping("/add")
-    public Inventory addInventory(@RequestBody Inventory inventory) {
-        return inventoryService.addInventory(inventory);
+    public InventoryController(InventoryRepository inventoryRepository) {
+        this.inventoryRepository = inventoryRepository;
     }
 
-    // READ ALL
-    @GetMapping("/all")
-    public List<Inventory> getAllInventory() {
-        return inventoryService.getAllInventory();
+    @PostMapping
+    public Inventory create(@RequestBody Inventory inventory) {
+        return inventoryRepository.save(inventory);
     }
 
-    // READ BY ID
+    @GetMapping
+    public List<Inventory> getAll() {
+        return inventoryRepository.findAll();
+    }
+
     @GetMapping("/{id}")
-    public Inventory getInventoryById(@PathVariable Long id) {
-        return inventoryService.getInventoryById(id);
+    public Inventory getById(@PathVariable Long id) {
+        return inventoryRepository.findById(id).orElse(null);
     }
 
-    // UPDATE
-    @PutMapping("/update/{id}")
-    public Inventory updateInventory(@PathVariable Long id, @RequestBody Inventory inventory) {
-        return inventoryService.updateInventory(id, inventory);
+    @PutMapping("/{id}")
+    public Inventory update(@PathVariable Long id, @RequestBody Inventory inventory) {
+        inventory.setId(id);
+        return inventoryRepository.save(inventory);
     }
 
-    // DELETE
-    @DeleteMapping("/delete/{id}")
-    public Inventory deleteInventory(@PathVariable Long id) {
-        return inventoryService.deleteInventory(id);
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        inventoryRepository.deleteById(id);
     }
 }

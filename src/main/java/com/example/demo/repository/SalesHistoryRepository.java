@@ -1,17 +1,7 @@
-@RestController
-@RequestMapping("/api/sales")
-public class SalesHistoryController {
+package com.example.demo.repository;
 
-    @Autowired
-    SalesHistoryService service;
+import com.example.demo.entity.SalesHistory;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-    @PostMapping
-    public SalesHistory save(@RequestBody SalesHistory s) {
-        return service.save(s);
-    }
-
-    @GetMapping
-    public List<SalesHistory> getAll() {
-        return service.getAll();
-    }
+public interface SalesHistoryRepository extends JpaRepository<SalesHistory, Long> {
 }
