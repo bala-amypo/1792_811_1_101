@@ -1,49 +1,47 @@
 package com.example.demo.controller;
 
+import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.example.demo.entity.User;
+import com.example.demo.service.UserService;
+
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import com.example.demo.entity.SalesHistory;
-import com.example.demo.service.SalesHistoryService;
-
 @RestController
-@RequestMapping("/api/sales")
-public class SalesHistoryController {
+@RequestMapping("/api/users")
+public class UserController {
 
-    private final SalesHistoryService salesHistoryService;
+    @Autowired
+    private UserService userService;
 
-    public SalesHistoryController(SalesHistoryService salesHistoryService) {
-        this.salesHistoryService = salesHistoryService;
+    // CREATE / REGISTER USER
+    @PostMapping("/register")
+    public User addUser(@RequestBody User user) {
+        return userService.addUser(user);
     }
 
-    
-    @PostMapping("/record")
-    public ResponseEntity<SalesHistory> recordSale(
-            @RequestParam Long inventoryId,
-            @RequestParam int quantitySold) {
-
-        SalesHistory salesHistory =
-                salesHistoryService.recordSale(inventoryId, quantitySold);
-
-        return new ResponseEntity<>(salesHistory, HttpStatus.CREATED);
+    // READ ALL USERS
+    @GetMapping("/all")
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 
-    
-    @GetMapping
-    public ResponseEntity<List<SalesHistory>> getAllSalesHistory() {
-        return ResponseEntity.ok(
-                salesHistoryService.getAllSalesHistory());
-    }
-
-    
+    // READ USER BY ID
     @GetMapping("/{id}")
-    public ResponseEntity<SalesHistory> getSalesHistoryById(
-            @PathVariable Long id) {
+    public User getUserById(@PathVariable Integer id) {
+        return userService.getUserById(id);
+    }
 
-        return ResponseEntity.ok(
-                salesHistoryService.getSalesHistoryById(id));
+    // UPDATE USER
+    @PutMapping("/update/{id}")
+    public User updateUser(@PathVariable Integer id, @RequestBody User user) {
+        return userService.updateUser(id, user);
+    }
+
+    // DELETE USER
+    @DeleteMapping("/delete/{id}")
+    public User deleteUser(@PathVariable Integer id) {
+        return userService.deleteUser(id);
     }
 }

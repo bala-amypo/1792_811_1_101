@@ -1,33 +1,47 @@
 package com.example.demo.controller;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
-
-    
+    // CREATE / REGISTER USER
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody User user) {
-        User savedUser = userService.register(user);
-        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+    public User addUser(@RequestBody User user) {
+        return userService.addUser(user);
     }
 
-    
-    @GetMapping("/{username}")
-    public ResponseEntity<User> getByUsername(@PathVariable String username) {
-        User user = userService.getByUsername(username);
-        return ResponseEntity.ok(user);
+    // READ ALL USERS
+    @GetMapping("/all")
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+    // READ USER BY ID
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable Integer id) {
+        return userService.getUserById(id);
+    }
+
+    // UPDATE USER
+    @PutMapping("/update/{id}")
+    public User updateUser(@PathVariable Integer id, @RequestBody User user) {
+        return userService.updateUser(id, user);
+    }
+
+    // DELETE USER
+    @DeleteMapping("/delete/{id}")
+    public User deleteUser(@PathVariable Integer id) {
+        return userService.deleteUser(id);
     }
 }
