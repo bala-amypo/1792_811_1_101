@@ -1,8 +1,6 @@
 package com.example.demo.dto;
 
-/**
- * DTO for user registration
- */
+
 public class UserRegisterDTO {
 
     private String username;
@@ -10,11 +8,11 @@ public class UserRegisterDTO {
     private String email;
     private String role;
 
-    // Default constructor
+    
     public UserRegisterDTO() {
     }
 
-    // Parameterized constructor
+    
     public UserRegisterDTO(String username, String password, String email, String role) {
         this.username = username;
         this.password = password;
@@ -22,7 +20,7 @@ public class UserRegisterDTO {
         this.role = role;
     }
 
-    // Getters and Setters
+    
     public String getUsername() {
         return username;
     }

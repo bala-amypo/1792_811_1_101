@@ -1,24 +1,22 @@
 package com.example.demo.dto;
 
-/**
- * DTO for authentication response
- */
+
 public class AuthResponse {
 
     private String token;
     private String username;
 
-    // Default constructor
+    
     public AuthResponse() {
     }
 
-    // Parameterized constructor
+    
     public AuthResponse(String token, String username) {
         this.token = token;
         this.username = username;
     }
 
-    // Getters and Setters
+    
     public String getToken() {
         return token;
     }
