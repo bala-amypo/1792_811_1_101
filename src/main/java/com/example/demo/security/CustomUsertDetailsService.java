@@ -1,63 +1,35 @@
 package com.example.demo.security;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.User;
+import com.example.demo.repository.UserRepository;
 
-// 🔹 Custom implementation of UserDetails (Encapsulation + Abstraction)
-public class CustomUserDetails implements UserDetails {
 
-    private final User user;
+@Service
+public class CustomUserDetailsService implements UserDetailsService {
 
-    // 🔒 Constructor injection (Encapsulation)
-    public CustomUserDetails(User user) {
-        this.user = user;
+    private final UserRepository userRepository;
+
+  
+    public CustomUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        // 🔹 Role as authority
-        return Collections.singleton(
-                new SimpleGrantedAuthority("ROLE_" + user.getRole()));
-    }
+    public UserDetails loadUserByUsername(String username) 
+            throws UsernameNotFoundException {
 
-    @Override
-    public String getPassword() {
-        return user.getPassword();
-    }
+        
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> 
+                        new UsernameNotFoundException(
+                            "User not found with username: " + username));
 
-    @Override
-    public String getUsername() {
-        return user.getUsername();
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-    
-    public User getUser() {
-        return user;
+       
+        return new CustomUserDetails(user);
     }
 }
