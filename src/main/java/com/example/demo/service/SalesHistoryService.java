@@ -1,44 +1,17 @@
 package com.example.demo.service;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ArrayList;
-
-import org.springframework.stereotype.Service;
-
 import com.example.demo.entity.SalesHistory;
+import java.util.List;
 
-@Service
-public class SalesHistoryService {
+public interface SalesHistoryService {
 
-    // In-memory storage
-    private Map<Long, SalesHistory> salesMap = new HashMap<>();
+    SalesHistory createSalesHistory(SalesHistory salesHistory);
 
-    // CREATE
-    public SalesHistory addSales(SalesHistory sales) {
-        salesMap.put(sales.getId(), sales);
-        return sales;
-    }
+    List<SalesHistory> getAllSalesHistory();
 
-    // READ ALL
-    public List<SalesHistory> getAllSales() {
-        return new ArrayList<>(salesMap.values());
-    }
+    SalesHistory getSalesHistoryById(Long id);
 
-    // READ BY ID
-    public SalesHistory getSalesById(Long id) {
-        return salesMap.get(id);
-    }
+    SalesHistory updateSalesHistory(Long id, SalesHistory salesHistory);
 
-    // UPDATE
-    public SalesHistory updateSales(Long id, SalesHistory sales) {
-        salesMap.put(id, sales);
-        return sales;
-    }
-
-    // DELETE
-    public SalesHistory deleteSales(Long id) {
-        return salesMap.remove(id);
-    }
+    void deleteSalesHistory(Long id);
 }
