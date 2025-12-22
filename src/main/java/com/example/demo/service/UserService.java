@@ -1,14 +1,44 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.AuthRequest;
-import com.example.demo.dto.UserRegisterDto;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+
+import org.springframework.stereotype.Service;
+
 import com.example.demo.entity.User;
 
-public interface UserService {
+@Service
+public class UserService {
 
-    User register(UserRegisterDto dto);
+    // In-memory storage
+    private Map<Long, User> users = new HashMap<>();
 
-    String authenticate(AuthRequest request);
+    // CREATE
+    public User addUser(User user) {
+        users.put(user.getId(), user);
+        return user;
+    }
 
-    User getByUsername(String username);
+    // READ ALL
+    public List<User> getAllUsers() {
+        return new ArrayList<>(users.values());
+    }
+
+    // READ BY ID
+    public User getUserById(Long id) {
+        return users.get(id);
+    }
+
+    // UPDATE
+    public User updateUser(Long id, User user) {
+        users.put(id, user);
+        return user;
+    }
+
+    // DELETE
+    public User deleteUser(Long id) {
+        return users.remove(id);
+    }
 }
