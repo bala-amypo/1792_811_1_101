@@ -1,12 +1,17 @@
-package com.example.demo.repository;
+@RestController
+@RequestMapping("/api/inventory")
+public class InventoryController {
 
-import com.example.demo.entity.Inventory;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+    @Autowired
+    InventoryService service;
 
-import java.util.Optional;
+    @PostMapping
+    public Inventory save(@RequestBody Inventory i) {
+        return service.save(i);
+    }
 
-@Repository
-public interface InventoryRepository extends JpaRepository<Inventory, Long> {
-    Optional<Inventory> findByProductName(String productName);
+    @GetMapping
+    public List<Inventory> getAll() {
+        return service.getAll();
+    }
 }
