@@ -1,24 +1,35 @@
 package com.example.demo.controller;
 
 import java.util.List;
+
 import org.springframework.web.bind.annotation.*;
 
+import com.example.demo.entity.PredictionRule;
+import com.example.demo.repository.PredictionRuleRepository;
+
 @RestController
-@RequestMapping("/api/predict")
-public class PredictionController {
+@RequestMapping("/api/predict/rules")
+public class PredictionRuleController {
 
-    @GetMapping("/restock-date/{stockRecordId}")
-    public String predictRestockDate(@PathVariable Long stockRecordId) {
-        return "Predicted restock date for stockRecord " + stockRecordId;
+    private final PredictionRuleRepository repo;
+
+    public PredictionRuleController(PredictionRuleRepository repo) {
+        this.repo = repo;
     }
 
-    @PostMapping("/rules")
-    public String createPredictionRule() {
-        return "Prediction rule created";
+    @PostMapping
+    public PredictionRule create(@RequestBody PredictionRule rule) {
+        return repo.save(rule);
     }
 
-    @GetMapping("/rules")
-    public List<String> getAllPredictionRules() {
-        return List.of("Rule1", "Rule2");
+    @GetMapping
+    public List<PredictionRule> getAll() {
+        return repo.findAll();
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id) {
+        repo.deleteById(id);
+        return "Prediction rule deleted";
     }
 }

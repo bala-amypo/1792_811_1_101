@@ -6,13 +6,21 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 public class AuthController {
 
+    // REGISTER (CREATE)
     @PostMapping("/register")
-    public String register() {
+    public String register(@RequestBody String userData) {
         return "User registered successfully";
     }
 
+    // LOGIN (READ / VERIFY)
     @PostMapping("/login")
-    public String login() {
-        return "JWT token returned";
+    public String login(@RequestBody String loginData) {
+        return "Login successful";
+    }
+
+    // LOGOUT (DELETE / SESSION END)
+    @PostMapping("/logout")
+    public String logout() {
+        return "Logout successful";
     }
 }

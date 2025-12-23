@@ -1,24 +1,40 @@
 package com.example.demo.controller;
 
 import java.util.List;
+
 import org.springframework.web.bind.annotation.*;
+
+import com.example.demo.entity.ConsumptionLog;
+import com.example.demo.repository.ConsumptionLogRepository;
 
 @RestController
 @RequestMapping("/api/consumption")
 public class ConsumptionLogController {
 
-    @PostMapping("/{stockRecordId}")
-    public String logConsumption(@PathVariable Long stockRecordId) {
-        return "Consumption logged for stockRecord " + stockRecordId;
+    private final ConsumptionLogRepository repo;
+
+    public ConsumptionLogController(ConsumptionLogRepository repo) {
+        this.repo = repo;
     }
 
-    @GetMapping("/record/{stockRecordId}")
-    public List<String> getConsumptionLogs(@PathVariable Long stockRecordId) {
-        return List.of("Consumption log for stockRecord " + stockRecordId);
+    @PostMapping
+    public ConsumptionLog create(@RequestBody ConsumptionLog log) {
+        return repo.save(log);
+    }
+
+    @GetMapping
+    public List<ConsumptionLog> getAll() {
+        return repo.findAll();
     }
 
     @GetMapping("/{id}")
-    public String getLogById(@PathVariable Long id) {
-        return "Consumption log with id " + id;
+    public ConsumptionLog getById(@PathVariable Long id) {
+        return repo.findById(id).orElse(null);
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id) {
+        repo.deleteById(id);
+        return "Consumption log deleted";
     }
 }
