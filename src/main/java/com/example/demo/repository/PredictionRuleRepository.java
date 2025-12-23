@@ -1,28 +1,11 @@
-package com.example.demo.entity;
+package com.example.demo.repository;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-@Entity
-@Table(name = "prediction_rules")
-public class PredictionRule {
+import com.example.demo.entity.PredictionRule;
 
-    @Id
-    private Long id;
-    private String ruleName;
-    private int thresholdDays;
-
-    public PredictionRule() {}
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getRuleName() { return ruleName; }
-    public void setRuleName(String ruleName) { this.ruleName = ruleName; }
-
-    public int getThresholdDays() { return thresholdDays; }
-    public void setThresholdDays(int thresholdDays) {
-        this.thresholdDays = thresholdDays;
-    }
+@Repository
+public interface PredictionRuleRepository 
+        extends JpaRepository<PredictionRule, Long> {
 }

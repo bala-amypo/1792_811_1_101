@@ -1,35 +1,11 @@
-package com.example.demo.entity;
+package com.example.demo.repository;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import java.time.LocalDateTime;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-@Entity
-@Table(name = "consumption_logs")
-public class ConsumptionLog {
+import com.example.demo.entity.ConsumptionLog;
 
-    @Id
-    private Long id;
-    private Long stockRecordId;
-    private int consumedQuantity;
-    private LocalDateTime consumedAt;
-
-    public ConsumptionLog() {}
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public Long getStockRecordId() { return stockRecordId; }
-    public void setStockRecordId(Long stockRecordId) { this.stockRecordId = stockRecordId; }
-
-    public int getConsumedQuantity() { return consumedQuantity; }
-    public void setConsumedQuantity(int consumedQuantity) {
-        this.consumedQuantity = consumedQuantity;
-    }
-
-    public LocalDateTime getConsumedAt() { return consumedAt; }
-    public void setConsumedAt(LocalDateTime consumedAt) {
-        this.consumedAt = consumedAt;
-    }
+@Repository
+public interface ConsumptionLogRepository 
+        extends JpaRepository<ConsumptionLog, Long> {
 }
