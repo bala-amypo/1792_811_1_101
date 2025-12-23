@@ -1,24 +1,47 @@
 package com.example.demo.controller;
 
 import java.util.List;
+
 import org.springframework.web.bind.annotation.*;
+
+import com.example.demo.entity.Warehouse;
+import com.example.demo.repository.WarehouseRepository;
 
 @RestController
 @RequestMapping("/api/warehouses")
 public class WarehouseController {
 
-    @PostMapping("/")
-    public String createWarehouse() {
-        return "Warehouse created";
+    private final WarehouseRepository repo;
+
+    public WarehouseController(WarehouseRepository repo) {
+        this.repo = repo;
     }
 
-    @GetMapping("/")
-    public List<String> getAllWarehouses() {
-        return List.of("Warehouse1", "Warehouse2");
+    @PostMapping
+    public Warehouse create(@RequestBody Warehouse warehouse) {
+        return repo.save(warehouse);
+    }
+
+    @GetMapping
+    public List<Warehouse> getAll() {
+        return repo.findAll();
     }
 
     @GetMapping("/{id}")
-    public String getWarehouseById(@PathVariable Long id) {
-        return "Warehouse with id " + id;
+    public Warehouse getById(@PathVariable Long id) {
+        return repo.findById(id).orElse(null);
+    }
+
+    @PutMapping("/{id}")
+    public Warehouse update(@PathVariable Long id,
+                            @RequestBody Warehouse warehouse) {
+        warehouse.setId(id);
+        return repo.save(warehouse);
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id) {
+        repo.deleteById(id);
+        return "Warehouse deleted";
     }
 }

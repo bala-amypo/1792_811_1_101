@@ -1,32 +1,47 @@
 package com.example.demo.controller;
 
 import java.util.List;
+
 import org.springframework.web.bind.annotation.*;
+
+import com.example.demo.entity.StockRecord;
+import com.example.demo.repository.StockRecordRepository;
 
 @RestController
 @RequestMapping("/api/stocks")
 public class StockRecordController {
 
-    @PostMapping("/{productId}/{warehouseId}")
-    public String createStockRecord(
-            @PathVariable Long productId,
-            @PathVariable Long warehouseId) {
-        return "Stock record created for product " + productId +
-               " in warehouse " + warehouseId;
+    private final StockRecordRepository repo;
+
+    public StockRecordController(StockRecordRepository repo) {
+        this.repo = repo;
     }
 
-    @GetMapping("/product/{productId}")
-    public List<String> getStockByProduct(@PathVariable Long productId) {
-        return List.of("Stock record for product " + productId);
+    @PostMapping
+    public StockRecord create(@RequestBody StockRecord stock) {
+        return repo.save(stock);
     }
 
-    @GetMapping("/warehouse/{warehouseId}")
-    public List<String> getStockByWarehouse(@PathVariable Long warehouseId) {
-        return List.of("Stock record for warehouse " + warehouseId);
+    @GetMapping
+    public List<StockRecord> getAll() {
+        return repo.findAll();
     }
 
     @GetMapping("/{id}")
-    public String getStockRecordById(@PathVariable Long id) {
-        return "Stock record with id " + id;
+    public StockRecord getById(@PathVariable Long id) {
+        return repo.findById(id).orElse(null);
+    }
+
+    @PutMapping("/{id}")
+    public StockRecord update(@PathVariable Long id,
+                              @RequestBody StockRecord stock) {
+        stock.setId(id);
+        return repo.save(stock);
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id) {
+        repo.deleteById(id);
+        return "Stock record deleted";
     }
 }
