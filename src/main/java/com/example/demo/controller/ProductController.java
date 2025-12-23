@@ -11,18 +11,42 @@ import com.example.demo.repository.ProductRepository;
 @RequestMapping("/api/products")
 public class ProductController {
 
-    private final ProductRepository repo;
+    private final ProductRepository productRepository;
 
-    public ProductController(ProductRepository repo) {
-        this.repo = repo;
+    public ProductController(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
-    // CREATE
+    // ✅ CREATE PRODUCT
     @PostMapping
-    public Product create(@RequestBody Product product) {
-        return repo.save(product);
+    public Product createProduct(@RequestBody Product product) {
+        return productRepository.save(product);
     }
 
-    // READ ALL
+    // ✅ READ ALL PRODUCTS
     @GetMapping
-    public List<Product> g
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
+
+    // ✅ READ PRODUCT BY ID
+    @GetMapping("/{id}")
+    public Product getProductById(@PathVariable Long id) {
+        return productRepository.findById(id).orElse(null);
+    }
+
+    // ✅ UPDATE PRODUCT
+    @PutMapping("/{id}")
+    public Product updateProduct(@PathVariable Long id,
+                                 @RequestBody Product product) {
+        product.setId(id);
+        return productRepository.save(product);
+    }
+
+    // ✅ DELETE PRODUCT
+    @DeleteMapping("/{id}")
+    public String deleteProduct(@PathVariable Long id) {
+        productRepository.deleteById(id);
+        return "Product deleted successfully";
+    }
+}
