@@ -32,16 +32,5 @@ public class WarehouseController {
         return repo.findById(id).orElse(null);
     }
 
-    @PutMapping("/{id}")
-    public Warehouse update(@PathVariable Long id,
-                            @RequestBody Warehouse warehouse) {
-        warehouse.setId(id);
-        return repo.save(warehouse);
-    }
-
-    @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long id) {
-        repo.deleteById(id);
-        return "Warehouse deleted";
-    }
+   
 }

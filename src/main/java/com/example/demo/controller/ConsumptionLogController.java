@@ -32,9 +32,4 @@ public class ConsumptionLogController {
         return repo.findById(id).orElse(null);
     }
 
-    @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long id) {
-        repo.deleteById(id);
-        return "Consumption log deleted";
-    }
 }

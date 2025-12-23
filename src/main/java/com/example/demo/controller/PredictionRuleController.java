@@ -29,10 +29,5 @@ public class PredictionRuleController {
         return repo.findAll();
     }
 
-    // DELETE
-    @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long id) {
-        repo.deleteById(id);
-        return "Prediction rule deleted";
-    }
+    
 }

@@ -35,18 +35,7 @@ public class ProductController {
         return productRepository.findById(id).orElse(null);
     }
 
-    // ✅ UPDATE PRODUCT
-    @PutMapping("/{id}")
-    public Product updateProduct(@PathVariable Long id,
-                                 @RequestBody Product product) {
-        product.setId(id);
-        return productRepository.save(product);
-    }
+    
 
-    // ✅ DELETE PRODUCT
-    @DeleteMapping("/{id}")
-    public String deleteProduct(@PathVariable Long id) {
-        productRepository.deleteById(id);
-        return "Product deleted successfully";
-    }
+    
 }

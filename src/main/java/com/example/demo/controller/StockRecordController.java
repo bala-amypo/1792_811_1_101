@@ -32,16 +32,7 @@ public class StockRecordController {
         return repo.findById(id).orElse(null);
     }
 
-    @PutMapping("/{id}")
-    public StockRecord update(@PathVariable Long id,
-                              @RequestBody StockRecord stock) {
-        stock.setId(id);
-        return repo.save(stock);
-    }
+   
 
-    @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long id) {
-        repo.deleteById(id);
-        return "Stock record deleted";
-    }
+    
 }
