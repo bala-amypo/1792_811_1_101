@@ -17,16 +17,19 @@ public class PredictionRuleController {
         this.repo = repo;
     }
 
+    // CREATE
     @PostMapping
     public PredictionRule create(@RequestBody PredictionRule rule) {
         return repo.save(rule);
     }
 
+    // READ ALL
     @GetMapping
     public List<PredictionRule> getAll() {
         return repo.findAll();
     }
 
+    // DELETE
     @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         repo.deleteById(id);
