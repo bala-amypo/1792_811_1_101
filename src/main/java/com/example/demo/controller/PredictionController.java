@@ -1,36 +1,42 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.PredictionRule;
+import com.example.demo.service.PredictionService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
 import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-
-import com.example.demo.model.PredictionRule;
-import com.example.demo.service.PredictionService;
-
-import lombok.RequiredArgsConstructor;
-
 @RestController
-@RequestMapping("/prediction")
+@RequestMapping("/api/predict")
 @RequiredArgsConstructor
+@Tag(name = "Prediction Management", description = "APIs for restock predictions")
 public class PredictionController {
-
     private final PredictionService predictionService;
 
+    @GetMapping("/restock-date/{stockRecordId}")
+    @Operation(summary = "Predict next restock date for a stock record")
+    public ResponseEntity<LocalDate> predictRestockDate(@PathVariable Long stockRecordId) {
+        return ResponseEntity.ok(predictionService.predictRestockDate(stockRecordId));
+    }
+
     @PostMapping("/rules")
-    @ResponseStatus(HttpStatus.CREATED)
-    public PredictionRule createRule(@RequestBody PredictionRule rule) {
-        return predictionService.createRule(rule);
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Create a new prediction rule")
+    public ResponseEntity<PredictionRule> createRule(@Valid @RequestBody PredictionRule rule) {
+        return new ResponseEntity<>(predictionService.createRule(rule), HttpStatus.CREATED);
     }
 
     @GetMapping("/rules")
-    public List<PredictionRule> getAllRules() {
-        return predictionService.getAllRules();
-    }
-
-    @GetMapping("/restock/{stockRecordId}")
-    public LocalDate predict(@PathVariable Long stockRecordId) {
-        return predictionService.predictRestockDate(stockRecordId);
+    @Operation(summary = "Get all prediction rules")
+    public ResponseEntity<List<PredictionRule>> getAllRules() {
+        return ResponseEntity.ok(predictionService.getAllRules());
     }
 }

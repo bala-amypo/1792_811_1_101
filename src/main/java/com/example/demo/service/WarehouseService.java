@@ -1,14 +1,33 @@
 package com.example.demo.service;
 
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.model.Warehouse;
+import com.example.demo.repository.WarehouseRepository;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
-import com.example.demo.model.Warehouse;
+@Service
+@RequiredArgsConstructor
+public class WarehouseService {
+    private final WarehouseRepository warehouseRepository;
 
-public interface WarehouseService {
+    @Transactional
+    public Warehouse createWarehouse(Warehouse warehouse) {
+        if (warehouseRepository.findByWarehouseName(warehouse.getWarehouseName()).isPresent()) {
+            throw new IllegalArgumentException("Warehouse with name " + warehouse.getWarehouseName() + " already exists");
+        }
+        return warehouseRepository.save(warehouse);
+    }
 
-    Warehouse createWarehouse(Warehouse warehouse);
+    public List<Warehouse> getAllWarehouses() {
+        return warehouseRepository.findAll();
+    }
 
-    Warehouse getWarehouse(Long id);
-
-    List<Warehouse> getAllWarehouses();
+    public Warehouse getWarehouseById(Long id) {
+        return warehouseRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Warehouse not found with id: " + id));
+    }
 }
