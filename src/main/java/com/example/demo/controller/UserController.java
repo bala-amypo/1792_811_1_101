@@ -1,20 +1,38 @@
-// ProductService
-Product createProduct(Product product);
-List<Product> getAllProducts();
-Product getProductById(long id);
+package com.example.demo.controller;
 
-// WarehouseService
-Warehouse createWarehouse(Warehouse warehouse);
-List<Warehouse> getAllWarehouses();
-Warehouse getWarehouseById(long id);
+import com.example.demo.model.User;
+import com.example.demo.service.UserService;
+import org.springframework.web.bind.annotation.*;
 
-// StockRecordService
-StockRecord createStockRecord(StockRecord record);
-List<StockRecord> getRecordsByProduct(long productId);
+import java.util.List;
 
-// ConsumptionLogService
-ConsumptionLog createLog(ConsumptionLog log);
-List<ConsumptionLog> getLogsByStockRecord(long stockId);
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
 
-// PredictionService
-PredictionRule predictRestockDate(long stockId);
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @PostMapping
+    public User createUser(@RequestBody User user) {
+        return userService.createUser(user);
+    }
+
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable long id) {
+        return userService.getUserById(id);
+    }
+
+    @GetMapping("/email/{email}")
+    public User getUserByEmail(@PathVariable String email) {
+        return userService.getUserByEmail(email);
+    }
+}
