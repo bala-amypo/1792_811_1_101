@@ -1,25 +1,40 @@
 package com.example.demo.config;
 
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import java.util.Set;
+import java.security.Key;
+import java.util.Date;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtProvider {
+    
+    @Value("${app.jwt.secret}")
+    private String jwtSecret;
+    
+    @Value("${app.jwt.expiration}")
+    private int jwtExpirationInMs;
 
-    public String generateToken(String email, long userId, Set<?> roles) {
-        return "dummy-token";
+    private Key getSigningKey() {
+        return Keys.hmacShaKeyFor(jwtSecret.getBytes());
     }
 
-    public boolean validateToken(String token) {
-        return true;
-    }
-
-    public String getEmailFromToken(String token) {
-        return "test@email.com";
-    }
-
-    public Long getUserId(String token) {
-        return 1L;
-    }
-}
+    public String generateToken(Authentication authentication) {
+        String username = authentication.getName();
+        
+        String roles = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+        
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
+        
+        return Jwts.builder()
+                .setSubject(username)
+                .claim("roles", roles)
+                .
