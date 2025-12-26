@@ -2,7 +2,6 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,5 +19,6 @@ public class Product {
     private String sku;
     private String category;
 
-    private LocalDateTime createdAt; // ✅ ADD THIS
+    // ✅ ADD THIS LINE
+    private LocalDateTime createdAt;
 }
