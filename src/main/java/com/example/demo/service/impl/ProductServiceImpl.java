@@ -1,7 +1,7 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.entity.Product;
 import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.Product;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.ProductService;
 import org.springframework.stereotype.Service;
@@ -32,6 +32,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Product not found"));
     }
 }

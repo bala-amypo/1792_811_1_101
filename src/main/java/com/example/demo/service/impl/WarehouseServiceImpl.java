@@ -1,7 +1,7 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.entity.Warehouse;
 import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.Warehouse;
 import com.example.demo.repository.WarehouseRepository;
 import com.example.demo.service.WarehouseService;
 import org.springframework.stereotype.Service;
@@ -32,6 +32,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     @Override
     public Warehouse getById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Warehouse not found"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Warehouse not found"));
     }
 }

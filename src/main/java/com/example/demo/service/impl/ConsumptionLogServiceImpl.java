@@ -1,8 +1,8 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.entity.ConsumptionLog;
+import com.example.demo.entity.StockRecord;
 import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.ConsumptionLog;
-import com.example.demo.model.StockRecord;
 import com.example.demo.repository.ConsumptionLogRepository;
 import com.example.demo.repository.StockRecordRepository;
 import com.example.demo.service.ConsumptionLogService;
@@ -31,7 +31,8 @@ public class ConsumptionLogServiceImpl implements ConsumptionLogService {
         }
 
         StockRecord stock = stockRepo.findById(stockRecordId)
-                .orElseThrow(() -> new ResourceNotFoundException("StockRecord not found"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("StockRecord not found"));
 
         log.setStockRecord(stock);
         return logRepo.save(log);
@@ -45,6 +46,7 @@ public class ConsumptionLogServiceImpl implements ConsumptionLogService {
     @Override
     public ConsumptionLog getLog(Long id) {
         return logRepo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("ConsumptionLog not found"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("ConsumptionLog not found"));
     }
 }
