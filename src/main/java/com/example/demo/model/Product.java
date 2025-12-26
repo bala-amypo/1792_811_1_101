@@ -6,10 +6,8 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "products", 
-       uniqueConstraints = @UniqueConstraint(columnNames = "sku"))
-@Getter
-@Setter
+@Table(name = "products")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -19,16 +17,15 @@ public class Product {
     private Long id;
 
     @Column(nullable = false)
-    @NotEmpty(message = "Product name cannot be empty")
+    @NotEmpty
     private String productName;
 
     @Column(unique = true, nullable = false)
-    @NotEmpty(message = "SKU cannot be empty")
+    @NotEmpty
     private String sku;
 
     private String category;
 
-    @Column(nullable = false)
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 }

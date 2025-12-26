@@ -1,13 +1,18 @@
 package com.example.demo.repository;
 
-import java.util.List;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.example.demo.model.StockRecord;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import java.util.List;
+import java.util.Optional;
 
 public interface StockRecordRepository extends JpaRepository<StockRecord, Long> {
-
-    // REQUIRED for hidden tests
-    List<StockRecord> findByProductId(Long productId);
+    List<StockRecord> findByProductId(long productId);
+    
+    List<StockRecord> findByWarehouseId(long warehouseId);
+    
+    @Query("SELECT sr FROM StockRecord sr WHERE sr.product.id = :productId AND sr.warehouse.id = :warehouseId")
+    Optional<StockRecord> findByProductIdAndWarehouseId(@Param("productId") long productId, 
+                                                        @Param("warehouseId") long warehouseId);
 }

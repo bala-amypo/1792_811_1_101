@@ -7,8 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "warehouses")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -18,14 +17,13 @@ public class Warehouse {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    @NotEmpty(message = "Warehouse name cannot be empty")
+    @NotEmpty
     private String warehouseName;
 
     @Column(nullable = false)
-    @NotEmpty(message = "Location cannot be empty")
+    @NotEmpty
     private String location;
 
-    @Column(nullable = false)
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 }

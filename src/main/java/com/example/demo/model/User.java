@@ -3,13 +3,10 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Collections;
 
 @Entity
 @Table(name = "users")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -29,9 +26,8 @@ public class User {
 
     @Column(nullable = false)
     @Builder.Default
-    private String role = "USER"; // USER, STAFF, ADMIN
+    private String role = "USER";
 
-    @Column(nullable = false)
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 }

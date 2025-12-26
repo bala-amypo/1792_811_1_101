@@ -7,8 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "prediction_rules")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -21,10 +20,9 @@ public class PredictionRule {
     private String ruleName;
 
     @Column(nullable = false)
-    @Min(value = 1, message = "Window size must be at least 1")
-    private Integer windowSize; // number of days to look back
+    @Min(1)
+    private Integer windowSize;
 
-    @Column(nullable = false)
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
 }

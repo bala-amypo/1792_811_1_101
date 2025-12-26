@@ -12,15 +12,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserRegisterDto {
-    @NotEmpty(message = "Name cannot be empty")
+    @NotEmpty
     private String name;
 
-    @Email(message = "Email should be valid")
-    @NotEmpty(message = "Email cannot be empty")
+    @Email
+    @NotEmpty
     private String email;
 
-    @NotEmpty(message = "Password cannot be empty")
+    @NotEmpty
     private String password;
 
-    private String role; // USER, STAFF, ADMIN
-}   
+    private String role;
+}
