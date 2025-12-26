@@ -14,6 +14,8 @@ public class PredictionRule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer threshold;
-    private Integer leadTimeDays;
+    private String ruleName;
+    private int averageDaysWindow;
+    private int minDailyUsage;
+    private int maxDailyUsage;
 }

@@ -16,8 +16,8 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String productName;   // REQUIRED
-    private String sku;           // REQUIRED
+    private String productName;
+    private String sku;
 
     private LocalDateTime createdAt;
 }

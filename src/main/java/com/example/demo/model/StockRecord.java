@@ -2,7 +2,6 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -21,7 +20,6 @@ public class StockRecord {
     @ManyToOne
     private Warehouse warehouse;
 
-    private Integer currentQuantity;
-
-    private LocalDateTime lastUpdated;
+    private int currentQuantity;
+    private int reorderThreshold;
 }

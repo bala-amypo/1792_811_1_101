@@ -2,7 +2,8 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -18,7 +19,6 @@ public class ConsumptionLog {
     @ManyToOne
     private StockRecord stockRecord;
 
-    private Integer consumedQuantity;
-
-    private LocalDateTime consumedDate;
+    private int consumedQuantity;
+    private LocalDate consumedDate;
 }
