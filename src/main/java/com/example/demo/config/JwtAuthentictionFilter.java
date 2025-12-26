@@ -14,12 +14,12 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     
-    private final JwtProvider jwtProvider;
+    private final com.example.demo.config.JwtProvider jwtProvider;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        // Simple implementation - just pass through
+        // Simple implementation for now
         filterChain.doFilter(request, response);
     }
 }
