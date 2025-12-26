@@ -23,21 +23,19 @@ public class ConsumptionLogServiceImpl implements ConsumptionLogService {
     }
 
     @Override
-    public ConsumptionLog logConsumption(Long stockRecordId, ConsumptionLog log) {
+    public ConsumptionLog logConsumption(long stockRecordId, ConsumptionLog log) {
 
         StockRecord record = stockRepo.findById(stockRecordId)
                 .orElseThrow(() -> new RuntimeException("StockRecord not found"));
 
         log.setStockRecord(record);
-
-        // ✅ FIX IS HERE (LocalDate, not LocalDateTime)
-        log.setConsumedDate(LocalDate.now());
+        log.setConsumedDate(LocalDate.now()); // ✅ correct type
 
         return logRepo.save(log);
     }
 
     @Override
-    public List<ConsumptionLog> getLogsByStockRecord(Long stockRecordId) {
+    public List<ConsumptionLog> getLogsByStockRecord(long stockRecordId) {
         return logRepo.findByStockRecordId(stockRecordId);
     }
 }
