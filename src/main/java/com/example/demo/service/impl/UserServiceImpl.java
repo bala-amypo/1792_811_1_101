@@ -1,7 +1,19 @@
+package com.example.demo.service;
+
+import com.example.demo.entity.User;
+
+public interface UserService {
+
+    User createUser(User user);
+
+    User getUserById(Long id);
+
+    User getUserByEmail(String email);
+}
 package com.example.demo.service.impl;
 
+import com.example.demo.entity.User;
 import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 import org.springframework.stereotype.Service;
@@ -16,12 +28,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User register(User user) {
+    public User createUser(User user) {
         return repository.save(user);
     }
 
     @Override
-    public User getByEmail(String email) {
+    public User getUserById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("User not found"));
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
         User user = repository.findByEmail(email);
         if (user == null) {
             throw new ResourceNotFoundException("User not found");
