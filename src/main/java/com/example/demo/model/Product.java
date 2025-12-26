@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,9 +16,8 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private String category;
-    private Integer reorderLevel;
+    private String productName;   // REQUIRED
+    private String sku;           // REQUIRED
 
     private LocalDateTime createdAt;
 }
