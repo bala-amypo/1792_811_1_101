@@ -2,10 +2,17 @@ package com.example.demo.repository;
 
 import com.example.demo.model.ConsumptionLog;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ConsumptionLogRepository extends JpaRepository<ConsumptionLog, Long> {
 
-    // REQUIRED by ConsumptionLogServiceImpl
-    List<ConsumptionLog> findByStockRecordId(long stockRecordId);
+    List<ConsumptionLog> findByStockRecordIdAndConsumedDateBetween(
+            long stockRecordId,
+            LocalDate start,
+            LocalDate end
+    );
+
+    List<ConsumptionLog> findByStockRecordIdOrderByConsumedDateDesc(long stockRecordId);
 }

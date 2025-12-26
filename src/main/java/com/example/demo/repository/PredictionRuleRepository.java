@@ -3,6 +3,5 @@ package com.example.demo.repository;
 import com.example.demo.model.PredictionRule;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PredictionRuleRepository
-        extends JpaRepository<PredictionRule, Long> {
+public interface PredictionRuleRepository extends JpaRepository<PredictionRule, Long> {
 }
