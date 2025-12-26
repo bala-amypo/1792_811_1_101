@@ -1,32 +1,18 @@
-package com.example.demo.controller;
+package com.example.demo.model;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import lombok.*;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class PredictionRule {
 
-import com.example.demo.model.ConsumptionLog;
-import com.example.demo.service.ConsumptionLogService;
-
-import lombok.RequiredArgsConstructor;
-
-@RestController
-@RequestMapping("/consumption")
-@RequiredArgsConstructor
-public class ConsumptionLogController {
-
-    private final ConsumptionLogService consumptionLogService;
-
-    @PostMapping("/stock/{stockRecordId}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ConsumptionLog logConsumption(
-            @PathVariable Long stockRecordId,
-            @RequestBody ConsumptionLog log) {
-        return consumptionLogService.logConsumption(stockRecordId, log);
-    }
-
-    @GetMapping("/stock/{stockRecordId}")
-    public List<ConsumptionLog> getLogs(@PathVariable Long stockRecordId) {
-        return consumptionLogService.getLogsByStockRecord(stockRecordId);
-    }
+    private Long id;
+    private String ruleName;
+    private int averageDaysWindow;
+    private int minDailyUsage;
+    private int maxDailyUsage;
+    private LocalDateTime createdAt;
 }
