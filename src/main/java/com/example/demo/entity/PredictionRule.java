@@ -10,8 +10,10 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class PredictionRule {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Integer windowDays;
 }

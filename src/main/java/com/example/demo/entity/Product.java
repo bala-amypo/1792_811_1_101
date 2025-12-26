@@ -12,12 +12,13 @@ import java.time.LocalDateTime;
 @Builder
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "sku"))
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String productName;
     private String sku;
     private String category;
     private LocalDateTime createdAt;
 }
-        

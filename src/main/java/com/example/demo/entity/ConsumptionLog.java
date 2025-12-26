@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 public class ConsumptionLog {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

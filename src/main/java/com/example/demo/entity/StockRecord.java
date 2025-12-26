@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,8 +10,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"product_id","warehouse_id"}))
+@Table(
+    uniqueConstraints = @UniqueConstraint(
+        columnNames = {"product_id", "warehouse_id"}
+    )
+)
 public class StockRecord {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
