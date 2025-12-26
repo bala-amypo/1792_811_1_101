@@ -5,20 +5,18 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = "sku"))
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String productName;
-    private String sku;
-    private String category;
+    private String name;
+
+    private int reorderLevel;
+
     private LocalDateTime createdAt;
 }

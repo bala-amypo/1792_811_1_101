@@ -5,20 +5,19 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class ConsumptionLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private int consumedQuantity;
+
+    private LocalDate consumedDate;
+
     @ManyToOne
     private StockRecord stockRecord;
-
-    private Integer consumedQuantity;
-    private LocalDate consumedDate;
 }

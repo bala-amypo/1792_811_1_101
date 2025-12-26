@@ -5,21 +5,16 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Table(
-    uniqueConstraints = @UniqueConstraint(
-        columnNames = {"product_id", "warehouse_id"}
-    )
-)
 public class StockRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private int quantity;
 
     @ManyToOne
     private Product product;
@@ -27,7 +22,5 @@ public class StockRecord {
     @ManyToOne
     private Warehouse warehouse;
 
-    private Integer currentQuantity;
-    private Integer reorderThreshold;
     private LocalDateTime lastUpdated;
 }
