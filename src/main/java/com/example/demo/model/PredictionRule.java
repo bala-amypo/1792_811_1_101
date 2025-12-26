@@ -1,28 +1,28 @@
-package com.example.demo.model;
+package com.example.demo.service;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
-import lombok.*;
-import java.time.LocalDateTime;
+import com.example.demo.model.PredictionRule;
+import com.example.demo.repository.PredictionRuleRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
-@Entity
-@Table(name = "prediction_rules")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class PredictionRule {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+import java.time.LocalDate;
+import java.util.List;
 
-    @Column(nullable = false)
-    private String ruleName;
+@Service
+@RequiredArgsConstructor
+public class PredictionService {
+    private final PredictionRuleRepository predictionRuleRepository;
 
-    @Column(nullable = false)
-    @Min(1)
-    private Integer windowSize;
+    public LocalDate predictRestockDate(long stockRecordId) {
+        // Simple implementation
+        return LocalDate.now().plusDays(7);
+    }
 
-    @Builder.Default
-    private LocalDateTime createdAt = LocalDateTime.now();
+    public List<PredictionRule> getAllRules() {
+        return predictionRuleRepository.findAll();
+    }
+
+    public PredictionRule createRule(PredictionRule rule) {
+        return predictionRuleRepository.save(rule);
+    }
 }

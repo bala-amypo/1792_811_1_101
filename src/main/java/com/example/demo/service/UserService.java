@@ -31,12 +31,17 @@ public class UserService {
     }
 
     public AuthResponse login(AuthRequest request) {
-        // Simplified for now
+        // Simple implementation
         return AuthResponse.builder()
                 .token("dummy-token")
                 .email(request.getEmail())
-                .name("Test User")
+                .name("User")
                 .role("USER")
                 .build();
+    }
+    
+    public User getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
     }
 }

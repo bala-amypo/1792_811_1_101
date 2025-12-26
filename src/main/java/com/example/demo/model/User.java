@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
-@Data
+@Data  // This adds getters and setters
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

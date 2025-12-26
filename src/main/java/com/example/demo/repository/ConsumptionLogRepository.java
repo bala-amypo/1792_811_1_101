@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ConsumptionLogRepository extends JpaRepository<ConsumptionLog, Long> {
     List<ConsumptionLog> findByStockRecordIdOrderByConsumedDateDesc(long stockRecordId);
+    // REMOVE: findByStockRecordIdAndConsumedDateBetween - it doesn't exist
 }
