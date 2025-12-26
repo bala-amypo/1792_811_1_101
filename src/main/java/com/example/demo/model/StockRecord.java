@@ -1,35 +1,18 @@
-package com.example.demo.controller;
+package com.example.demo.model;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import lombok.*;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class StockRecord {
 
-import com.example.demo.model.Warehouse;
-import com.example.demo.service.WarehouseService;
-
-import lombok.RequiredArgsConstructor;
-
-@RestController
-@RequestMapping("/warehouses")
-@RequiredArgsConstructor
-public class WarehouseController {
-
-    private final WarehouseService warehouseService;
-
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Warehouse createWarehouse(@RequestBody Warehouse warehouse) {
-        return warehouseService.createWarehouse(warehouse);
-    }
-
-    @GetMapping("/{id}")
-    public Warehouse getWarehouse(@PathVariable Long id) {
-        return warehouseService.getWarehouse(id);
-    }
-
-    @GetMapping
-    public List<Warehouse> getAllWarehouses() {
-        return warehouseService.getAllWarehouses();
-    }
+    private Long id;
+    private Long productId;
+    private Long warehouseId;
+    private int currentQuantity;
+    private int reorderThreshold;
+    private LocalDateTime lastUpdated;
 }
