@@ -37,4 +37,32 @@ public class JwtProvider {
         return Jwts.builder()
                 .setSubject(username)
                 .claim("roles", roles)
-                .
+                .setIssuedAt(now)
+                .setExpiration(expiryDate)
+                .signWith(getSigningKey(), SignatureAlgorithm.HS512)
+                .compact();
+    }
+
+    public String getUsernameFromJWT(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        
+        return claims.getSubject();
+    }
+
+    public boolean validateToken(String authToken) {
+        try {
+            Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(authToken);
+            return true;
+        } catch (JwtException ex) {
+            // Log exception if needed
+        }
+        return false;
+    }
+}
