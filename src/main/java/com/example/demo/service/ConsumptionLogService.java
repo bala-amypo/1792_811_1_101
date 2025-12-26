@@ -41,7 +41,12 @@ public class ConsumptionLogService {
     }
 
     public List<ConsumptionLog> getLogsByStockRecord(long stockRecordId) {
-        return consumptionLogRepository.findByStockRecordIdOrderByConsumedDateDesc(stockRecordId);
+        // Use findAll and filter manually if repository method doesn't work
+        List<ConsumptionLog> allLogs = consumptionLogRepository.findAll();
+        return allLogs.stream()
+                .filter(log -> log.getStockRecord().getId().equals(stockRecordId))
+                .sorted((a, b) -> b.getConsumedDate().compareTo(a.getConsumedDate()))
+                .toList();
     }
 
     public ConsumptionLog getLog(Long id) {

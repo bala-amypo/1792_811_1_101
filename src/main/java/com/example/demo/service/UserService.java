@@ -31,12 +31,21 @@ public class UserService {
     }
 
     public AuthResponse login(AuthRequest request) {
-        return AuthResponse.builder()
-                .token("dummy-token")
-                .email(request.getEmail())
-                .name("User")
-                .role("USER")
-                .build();
+        // OPTION 1: Use constructor directly
+        AuthResponse response = new AuthResponse();
+        response.setToken("dummy-token");
+        response.setEmail(request.getEmail());
+        response.setName("User");
+        response.setRole("USER");
+        return response;
+        
+        // OPTION 2: Use manual builder (uncomment if you created manual builder)
+        // return AuthResponse.builder()
+        //         .token("dummy-token")
+        //         .email(request.getEmail())
+        //         .name("User")
+        //         .role("USER")
+        //         .build();
     }
     
     public User getUserById(Long id) {
