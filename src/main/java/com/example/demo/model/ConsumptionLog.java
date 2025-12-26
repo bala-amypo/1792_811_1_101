@@ -16,11 +16,9 @@ public class ConsumptionLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int consumedQuantity;
-
-    // 🔥 USE LocalDate (NOT LocalDateTime)
-    private LocalDate consumedDate;
-
     @ManyToOne
     private StockRecord stockRecord;
+
+    private int quantityConsumed;
+    private LocalDate consumedDate; // MUST BE LocalDate
 }

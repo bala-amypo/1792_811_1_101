@@ -3,6 +3,8 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 @Builder
@@ -14,8 +16,10 @@ public class PredictionRule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String ruleName;
+    private String ruleName;            // REQUIRED
     private int averageDaysWindow;
     private int minDailyUsage;
     private int maxDailyUsage;
+
+    private LocalDateTime createdAt;    // REQUIRED
 }

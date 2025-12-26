@@ -6,7 +6,6 @@ import lombok.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "users")
 @Data
 @Builder
 @NoArgsConstructor
@@ -17,8 +16,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;       // REQUIRED
     private String email;
-
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)

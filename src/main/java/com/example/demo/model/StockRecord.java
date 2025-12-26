@@ -16,16 +16,14 @@ public class StockRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int quantity;
-
-    private int reorderThreshold;
-
     @ManyToOne
     private Product product;
 
     @ManyToOne
     private Warehouse warehouse;
 
-    // 🔥 ADD THIS FIELD
+    private int currentQuantity;     // REQUIRED
+    private int reorderThreshold;
+
     private LocalDateTime lastUpdated;
 }
