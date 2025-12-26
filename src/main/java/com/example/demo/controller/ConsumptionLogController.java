@@ -1,28 +1,32 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.ConsumptionLog;
-import com.example.demo.service.ConsumptionLogService;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import com.example.demo.model.ConsumptionLog;
+import com.example.demo.service.ConsumptionLogService;
+
+import lombok.RequiredArgsConstructor;
+
 @RestController
-@RequestMapping("/api/consumption")
+@RequestMapping("/consumption")
+@RequiredArgsConstructor
 public class ConsumptionLogController {
 
     private final ConsumptionLogService consumptionLogService;
 
-    public ConsumptionLogController(ConsumptionLogService consumptionLogService) {
-        this.consumptionLogService = consumptionLogService;
+    @PostMapping("/stock/{stockRecordId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ConsumptionLog logConsumption(
+            @PathVariable Long stockRecordId,
+            @RequestBody ConsumptionLog log) {
+        return consumptionLogService.logConsumption(stockRecordId, log);
     }
 
-    @PostMapping
-    public ConsumptionLog createLog(@RequestBody ConsumptionLog log) {
-        return consumptionLogService.createLog(log);
-    }
-
-    @GetMapping("/stock/{stockId}")
-    public List<ConsumptionLog> getLogsByStock(@PathVariable long stockId) {
-        return consumptionLogService.getLogsByStockRecord(stockId);
+    @GetMapping("/stock/{stockRecordId}")
+    public List<ConsumptionLog> getLogs(@PathVariable Long stockRecordId) {
+        return consumptionLogService.getLogsByStockRecord(stockRecordId);
     }
 }

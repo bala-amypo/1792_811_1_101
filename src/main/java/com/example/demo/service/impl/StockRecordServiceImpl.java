@@ -1,52 +1,38 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.Product;
-import com.example.demo.model.StockRecord;
-import com.example.demo.model.Warehouse;
-import com.example.demo.repository.ProductRepository;
-import com.example.demo.repository.StockRecordRepository;
-import com.example.demo.repository.WarehouseRepository;
-import com.example.demo.service.StockRecordService;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.StockRecord;
+import com.example.demo.repository.StockRecordRepository;
+import com.example.demo.service.StockRecordService;
+
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class StockRecordServiceImpl implements StockRecordService {
 
     private final StockRecordRepository recordRepo;
-    private final ProductRepository productRepo;
-    private final WarehouseRepository warehouseRepo;
-
-    public StockRecordServiceImpl(
-            StockRecordRepository recordRepo,
-            ProductRepository productRepo,
-            WarehouseRepository warehouseRepo) {
-        this.recordRepo = recordRepo;
-        this.productRepo = productRepo;
-        this.warehouseRepo = warehouseRepo;
-    }
 
     @Override
-    public StockRecord createStockRecord(long productId, long warehouseId, StockRecord record) {
-        Product product = productRepo.findById(productId).orElse(null);
-        Warehouse warehouse = warehouseRepo.findById(warehouseId).orElse(null);
-
-        record.setProduct(product);
-        record.setWarehouse(warehouse);
+    public StockRecord createStockRecord(Long productId, Long warehouseId, StockRecord record) {
+        record.setProductId(productId);
+        record.setWarehouseId(warehouseId);
         record.setLastUpdated(LocalDateTime.now());
-
         return recordRepo.save(record);
     }
 
     @Override
-    public StockRecord getStockRecord(long id) {
-        return recordRepo.findById(id).orElse(null);
+    public StockRecord getStockRecord(Long id) {
+        return recordRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("StockRecord not found"));
     }
 
     @Override
-    public List<StockRecord> getRecordsBy_product(long productId) {
+    public List<StockRecord> getRecordsBy_product(Long productId) {
         return recordRepo.findByProductId(productId);
     }
 }

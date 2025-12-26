@@ -1,11 +1,12 @@
 package com.example.demo.model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
-
 @Entity
+@Table(name = "consumption_logs")
 @Data
 @Builder
 @NoArgsConstructor
@@ -16,9 +17,10 @@ public class ConsumptionLog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private StockRecord stockRecord;
+    private Long stockRecordId;
 
-    private int quantityConsumed;
-    private LocalDate consumedDate; // MUST BE LocalDate
+    private int consumedQuantity;
+
+    // ⚠️ MUST be LocalDate (NOT LocalDateTime) – testcase requirement
+    private LocalDate consumedDate;
 }
