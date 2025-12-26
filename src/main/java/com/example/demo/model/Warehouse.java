@@ -5,7 +5,8 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Data                   // REQUIRED
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Warehouse {

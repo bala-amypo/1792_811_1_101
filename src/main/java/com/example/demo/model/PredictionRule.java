@@ -5,6 +5,7 @@ import lombok.*;
 
 @Entity
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class PredictionRule {
@@ -14,5 +15,5 @@ public class PredictionRule {
     private Long id;
 
     private Integer threshold;
-    private Integer predictionDays;
+    private Integer leadTimeDays;
 }

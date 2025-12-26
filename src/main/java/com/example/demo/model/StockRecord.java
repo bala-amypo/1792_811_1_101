@@ -5,7 +5,8 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Data                   // VERY IMPORTANT
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class StockRecord {
@@ -21,5 +22,6 @@ public class StockRecord {
     private Warehouse warehouse;
 
     private Integer currentQuantity;
+
     private LocalDateTime lastUpdated;
 }
