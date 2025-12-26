@@ -1,30 +1,28 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "stock_records")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"product_id","warehouse_id"}))
 public class StockRecord {
-
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long productId;
-    private Long warehouseId;
-    private int quantity;
 
-    public StockRecord() {}
+    @ManyToOne
+    private Product product;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    @ManyToOne
+    private Warehouse warehouse;
 
-    public Long getProductId() { return productId; }
-    public void setProductId(Long productId) { this.productId = productId; }
-
-    public Long getWarehouseId() { return warehouseId; }
-    public void setWarehouseId(Long warehouseId) { this.warehouseId = warehouseId; }
-
-    public int getQuantity() { return quantity; }
-    public void setQuantity(int quantity) { this.quantity = quantity; }
+    private Integer currentQuantity;
+    private Integer reorderThreshold;
+    private LocalDateTime lastUpdated;
 }
