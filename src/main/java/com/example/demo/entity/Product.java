@@ -1,26 +1,23 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "products")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "sku"))
 public class Product {
-
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private int reorderLevel;
-
-    public Product() {}
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-
-    public int getReorderLevel() { return reorderLevel; }
-    public void setReorderLevel(int reorderLevel) { this.reorderLevel = reorderLevel; }
+    private String productName;
+    private String sku;
+    private String category;
+    private LocalDateTime createdAt;
 }
+        
