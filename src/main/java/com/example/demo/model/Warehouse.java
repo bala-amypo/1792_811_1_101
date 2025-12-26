@@ -1,29 +1,13 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
-import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "warehouses")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Warehouse {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(unique = true, nullable = false)
-    @NotEmpty
     private String warehouseName;
-
-    @Column(nullable = false)
-    @NotEmpty
     private String location;
-
-    @Builder.Default
-    private LocalDateTime createdAt = LocalDateTime.now();
 }
