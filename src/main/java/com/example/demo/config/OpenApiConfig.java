@@ -12,10 +12,9 @@ public class OpenApiConfig {
 
     @Bean
     public OpenAPI customOpenAPI() {
-
         Server server = new Server();
         server.setUrl("https://9396.pro604cr.amypo.ai");
-        server.setDescription("Production Server");
+        server.setDescription("Local Server");
 
         return new OpenAPI()
                 .servers(List.of(server));
