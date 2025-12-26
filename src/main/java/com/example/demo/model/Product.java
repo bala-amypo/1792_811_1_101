@@ -3,6 +3,8 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 @Builder
@@ -14,7 +16,9 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String productName;   // REQUIRED
-    private String sku;           // REQUIRED
-    private String category;      // REQUIRED
+    private String productName;
+    private String sku;
+    private String category;
+
+    private LocalDateTime createdAt; // ✅ ADD THIS
 }
