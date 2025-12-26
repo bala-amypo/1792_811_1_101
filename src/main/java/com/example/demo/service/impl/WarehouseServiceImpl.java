@@ -3,10 +3,10 @@ package com.example.demo.service.impl;
 import com.example.demo.model.Warehouse;
 import com.example.demo.repository.WarehouseRepository;
 import com.example.demo.service.WarehouseService;
-import com.example.demo.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class WarehouseServiceImpl implements WarehouseService {
@@ -24,8 +24,12 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     @Override
-    public Warehouse getWarehouseById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Warehouse not found"));
+    public Warehouse getWarehouse(long id) {
+        return repository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Warehouse> getAllWarehouses() {
+        return repository.findAll();
     }
 }

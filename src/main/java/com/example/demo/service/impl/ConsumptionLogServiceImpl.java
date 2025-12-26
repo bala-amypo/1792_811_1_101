@@ -1,28 +1,38 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.ConsumptionLog;
+import com.example.demo.model.StockRecord;
 import com.example.demo.repository.ConsumptionLogRepository;
+import com.example.demo.repository.StockRecordRepository;
 import com.example.demo.service.ConsumptionLogService;
-import com.example.demo.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class ConsumptionLogServiceImpl implements ConsumptionLogService {
 
-    private final ConsumptionLogRepository repository;
+    private final ConsumptionLogRepository logRepo;
+    private final StockRecordRepository stockRepo;
 
-    public ConsumptionLogServiceImpl(ConsumptionLogRepository repository) {
-        this.repository = repository;
+    public ConsumptionLogServiceImpl(
+            ConsumptionLogRepository logRepo,
+            StockRecordRepository stockRepo) {
+        this.logRepo = logRepo;
+        this.stockRepo = stockRepo;
     }
 
     @Override
-    public ConsumptionLog createLog(ConsumptionLog log) {
-        return repository.save(log);
+    public ConsumptionLog logConsumption(long stockRecordId, ConsumptionLog log) {
+        StockRecord record = stockRepo.findById(stockRecordId).orElse(null);
+        log.setStockRecord(record);
+        log.setConsumedDate(LocalDateTime.now());
+        return logRepo.save(log);
     }
 
     @Override
-    public ConsumptionLog getLogById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Log not found"));
+    public List<ConsumptionLog> getLogsByStockRecord(long stockRecordId) {
+        return logRepo.findByStockRecordId(stockRecordId);
     }
 }

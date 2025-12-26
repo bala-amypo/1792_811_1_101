@@ -5,11 +5,7 @@ import java.util.List;
 
 public interface StockRecordService {
 
-    StockRecord createStockRecord(
-            long productId,
-            long warehouseId,
-            StockRecord stockRecord
-    );
+    StockRecord createStockRecord(long productId, long warehouseId, StockRecord record);
 
     StockRecord getStockRecord(long id);
 
