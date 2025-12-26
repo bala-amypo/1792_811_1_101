@@ -1,26 +1,38 @@
-package com.example.demo.model;
+package com.example.demo.controller;
 
-import jakarta.persistence.*;
-import lombok.*;
+import com.example.demo.model.User;
+import com.example.demo.service.UserService;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
+import java.util.List;
 
-@Entity
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class User {
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private final UserService userService;
 
-    private String name;       // REQUIRED
-    private String email;
-    private String password;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
+    @PostMapping
+    public User createUser(@RequestBody User user) {
+        return userService.createUser(user);
+    }
+
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable long id) {
+        return userService.getUserById(id);
+    }
+
+    @GetMapping("/email/{email}")
+    public User getUserByEmail(@PathVariable String email) {
+        return userService.getUserByEmail(email);
+    }
 }
