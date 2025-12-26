@@ -1,29 +1,35 @@
-package com.example.demo.model;
+package com.example.demo.controller;
 
-import jakarta.persistence.*;
-import lombok.*;
+import java.util.List;
 
-import java.time.LocalDateTime;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
-@Entity
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class StockRecord {
+import com.example.demo.model.Warehouse;
+import com.example.demo.service.WarehouseService;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+import lombok.RequiredArgsConstructor;
 
-    @ManyToOne
-    private Product product;
+@RestController
+@RequestMapping("/warehouses")
+@RequiredArgsConstructor
+public class WarehouseController {
 
-    @ManyToOne
-    private Warehouse warehouse;
+    private final WarehouseService warehouseService;
 
-    private int currentQuantity;     // REQUIRED
-    private int reorderThreshold;
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Warehouse createWarehouse(@RequestBody Warehouse warehouse) {
+        return warehouseService.createWarehouse(warehouse);
+    }
 
-    private LocalDateTime lastUpdated;
+    @GetMapping("/{id}")
+    public Warehouse getWarehouse(@PathVariable Long id) {
+        return warehouseService.getWarehouse(id);
+    }
+
+    @GetMapping
+    public List<Warehouse> getAllWarehouses() {
+        return warehouseService.getAllWarehouses();
+    }
 }

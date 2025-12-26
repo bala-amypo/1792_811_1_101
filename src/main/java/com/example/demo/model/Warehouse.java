@@ -1,10 +1,12 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
-import lombok.*;
 import java.time.LocalDateTime;
 
+import jakarta.persistence.*;
+import lombok.*;
+
 @Entity
+@Table(name = "warehouses")
 @Data
 @Builder
 @NoArgsConstructor
@@ -16,8 +18,8 @@ public class Warehouse {
     private Long id;
 
     private String warehouseName;
+
     private String location;
 
-    // ✅ ADD THIS LINE
     private LocalDateTime createdAt;
 }
