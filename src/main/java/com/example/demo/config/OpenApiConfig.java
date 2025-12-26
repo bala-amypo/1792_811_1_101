@@ -11,7 +11,7 @@ import java.util.List;
 public class OpenApiConfig {
 
     @Bean
-    public OpenAPI customOpenAPI() {
+    public OpenAPI openAPI() {
         Server server = new Server();
         server.setUrl("https://9396.pro604cr.amypo.ai");
         server.setDescription("Local Server");
