@@ -6,6 +6,7 @@ import lombok.*;
 import java.util.Set;
 
 @Entity
+@Table(name = "users")
 @Data
 @Builder
 @NoArgsConstructor
@@ -17,6 +18,7 @@ public class User {
     private Long id;
 
     private String email;
+
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)
