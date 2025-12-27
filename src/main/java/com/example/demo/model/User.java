@@ -1,35 +1,19 @@
-cat > src/main/java/com/example/demo/model/User.java << 'EOF'
 package com.example.demo.model;
 
-import jakarta.persistence.*;
-import lombok.*;
-import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "users")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
-    
-    @Column(nullable = false)
     private String name;
-    
-    @Column(unique = true, nullable = false)
     private String email;
-    
-    @Column(nullable = false)
     private String password;
-    
-    @Column(nullable = false)
-    @Builder.Default
-    private String role = "USER";
-    
-    @Builder.Default
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private String role;
 }
-EOF

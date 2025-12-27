@@ -1,53 +1,53 @@
-rm -f src/main/java/com/example/demo/service/UserService.java
-
-cat > src/main/java/com/example/demo/service/UserService.java << 'EOF'
 package com.example.demo.service;
 
-import com.example.demo.dto.AuthRequest;
-import com.example.demo.dto.AuthResponse;
-import com.example.demo.dto.UserRegisterDto;
-import com.example.demo.model.User;
-import com.example.demo.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.AuthRequest;
+import com.example.demo.dto.UserRegisterDto;
+import com.example.demo.model.User;
+import com.example.demo.repository.UserRepository;
+
 @Service
-@RequiredArgsConstructor
 public class UserService {
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
 
     public User register(UserRegisterDto dto) {
+
         if (userRepository.existsByEmail(dto.getEmail())) {
-            throw new IllegalArgumentException("User with email already exists");
+            throw new RuntimeException("Email already exists");
         }
 
         User user = User.builder()
                 .name(dto.getName())
                 .email(dto.getEmail())
                 .password(passwordEncoder.encode(dto.getPassword()))
-                .role(dto.getRole() != null ? dto.getRole() : "USER")
+                .role("ROLE_USER")
                 .build();
 
         return userRepository.save(user);
     }
 
-    public AuthResponse login(AuthRequest request) {
+    public User login(AuthRequest request) {
+
         User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("Invalid email"));
 
-        AuthResponse response = new AuthResponse();
-        response.setToken("jwt-token-placeholder");
-        response.setEmail(user.getEmail());
-        response.setName(user.getName());
-        response.setRole(user.getRole());
-        
-        return response;
-    }
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw new RuntimeException("Invalid password");
+        }
 
-    public User getByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        return user;
     }
 }
