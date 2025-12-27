@@ -1,9 +1,9 @@
 package com.example.demo.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 
 @Data
 @Builder
@@ -12,13 +12,8 @@ import lombok.AllArgsConstructor;
 public class User {
 
     private Long id;
-
-    // REQUIRED (fixes builder().name())
     private String name;
-
     private String email;
     private String password;
-
-    // REQUIRED (fixes getRole())
     private String role;
 }
