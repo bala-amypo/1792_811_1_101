@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
-import com.example.demo.dto.RegisterRequest;
 
 @Service
 public class UserService {
@@ -17,22 +16,19 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public User registerUser(RegisterRequest registerRequest) {
+    public User registerUser(String name, String email, String password) {
 
-        // 1. Check if email already exists
-        if (userRepository.existsByEmail(registerRequest.getEmail())) {
+        if (userRepository.existsByEmail(email)) {
             throw new RuntimeException("Email already exists");
         }
 
-        // 2. Create user using builder
         User user = User.builder()
-                .name(registerRequest.getName())
-                .email(registerRequest.getEmail())
-                .password(passwordEncoder.encode(registerRequest.getPassword()))
+                .name(name)
+                .email(email)
+                .password(passwordEncoder.encode(password))
                 .role("ROLE_USER")
                 .build();
 
-        // 3. Save and return
         return userRepository.save(user);
     }
 }
