@@ -12,7 +12,13 @@ import lombok.AllArgsConstructor;
 public class User {
 
     private Long id;
-    private String username;
+
+    // REQUIRED (fixes builder().name())
+    private String name;
+
     private String email;
     private String password;
+
+    // REQUIRED (fixes getRole())
+    private String role;
 }
