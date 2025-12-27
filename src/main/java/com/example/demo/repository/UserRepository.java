@@ -8,9 +8,7 @@ import com.example.demo.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    // REQUIRED for login
     Optional<User> findByEmail(String email);
 
-    // REQUIRED for registration (fixes your error)
     boolean existsByEmail(String email);
 }
