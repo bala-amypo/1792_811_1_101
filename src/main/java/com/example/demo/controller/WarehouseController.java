@@ -1,41 +1,45 @@
 package com.example.demo.controller;
-
-import com.example.demo.model.Warehouse;
-import com.example.demo.service.WarehouseService;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
+import com.example.demo.service.WarehouseService;
+import com.example.demo.model.Warehouse;
 import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 @RestController
 @RequestMapping("/api/warehouses")
-@RequiredArgsConstructor
-@Tag(name = "Warehouse Management", description = "APIs for managing warehouses")
+@Tag(name = "Warehouse")
+@SecurityRequirement(name="bearerAuth")
 public class WarehouseController {
-    private final WarehouseService warehouseService;
 
-    @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Create a new warehouse")
-    public ResponseEntity<Warehouse> createWarehouse(@Valid @RequestBody Warehouse warehouse) {
-        return new ResponseEntity<>(warehouseService.createWarehouse(warehouse), HttpStatus.CREATED);
-    }
 
-    @GetMapping
-    @Operation(summary = "Get all warehouses")
-    public ResponseEntity<List<Warehouse>> getAllWarehouses() {
-        return ResponseEntity.ok(warehouseService.getAllWarehouses());
-    }
+private final WarehouseService warehouseService;
 
-    @GetMapping("/{id}")
-    @Operation(summary = "Get warehouse by ID")
-    public ResponseEntity<Warehouse> getWarehouseById(@PathVariable Long id) {
-        return ResponseEntity.ok(warehouseService.getWarehouseById(id));
-    }
+
+public WarehouseController(WarehouseService warehouseService) {
+this.warehouseService = warehouseService;
+}
+
+
+@PostMapping
+public Warehouse create(@RequestBody Warehouse warehouse) {
+return warehouseService.createWarehouse(warehouse);
+}
+
+
+@GetMapping
+public List<Warehouse> getAll() {
+return warehouseService.getAllWarehouses();
+}
+
+
+@GetMapping("/{id}")
+public Warehouse get(@PathVariable Long id) {
+return warehouseService.getWarehouse(id);
+}
 }
