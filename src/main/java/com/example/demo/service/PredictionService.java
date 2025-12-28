@@ -1,28 +1,11 @@
 package com.example.demo.service;
 
 import com.example.demo.model.PredictionRule;
-import com.example.demo.repository.PredictionRuleRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 import java.util.List;
+import java.time.LocalDate;
 
-@Service
-@RequiredArgsConstructor
-public class PredictionService {
-    private final PredictionRuleRepository predictionRuleRepository;
-
-    public LocalDate predictRestockDate(long stockRecordId) {
-        // Simple implementation for now
-        return LocalDate.now().plusDays(7);
-    }
-
-    public List<PredictionRule> getAllRules() {
-        return predictionRuleRepository.findAll();
-    }
-
-    public PredictionRule createRule(PredictionRule rule) {
-        return predictionRuleRepository.save(rule);
-    }
+public interface PredictionService {
+LocalDate predictRestockDate(Long stockRecordId);
+List<PredictionRule> getAllRules();
+PredictionRule createRule(PredictionRule rule);
 }
