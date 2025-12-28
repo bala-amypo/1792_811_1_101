@@ -1,46 +1,47 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.ConsumptionLog;
-import com.example.demo.service.ConsumptionLogService;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
+import com.example.demo.service.ConsumptionLogService;
+import com.example.demo.model.ConsumptionLog;
 import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PathVariable;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 @RestController
 @RequestMapping("/api/consumption")
-@RequiredArgsConstructor
-@Tag(name = "Consumption Log Management", description = "APIs for managing consumption logs")
+@Tag(name = "Consumption")
+@SecurityRequirement(name="bearerAuth")
 public class ConsumptionLogController {
-    private final ConsumptionLogService consumptionLogService;
 
-    @PostMapping("/{stockRecordId}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('STAFF') or hasRole('USER')")
-    @Operation(summary = "Log consumption for a stock record")
-    public ResponseEntity<ConsumptionLog> logConsumption(
-            @PathVariable Long stockRecordId,
-            @Valid @RequestBody ConsumptionLog consumptionLog) {
-        return new ResponseEntity<>(
-                consumptionLogService.logConsumption(stockRecordId, consumptionLog),
-                HttpStatus.CREATED
-        );
-    }
 
-    @GetMapping("/record/{stockRecordId}")
-    @Operation(summary = "Get consumption logs by stock record ID")
-    public ResponseEntity<List<ConsumptionLog>> getLogsByStockRecord(@PathVariable Long stockRecordId) {
-        return ResponseEntity.ok(consumptionLogService.getLogsByStockRecord(stockRecordId));
-    }
+private final ConsumptionLogService consumptionLogService;
 
-    @GetMapping("/{id}")
-    @Operation(summary = "Get consumption log by ID")
-    public ResponseEntity<ConsumptionLog> getLogById(@PathVariable Long id) {
-        return ResponseEntity.ok(consumptionLogService.getLog(id));
-    }
+
+public ConsumptionLogController(ConsumptionLogService consumptionLogService) {
+this.consumptionLogService = consumptionLogService;
+}
+
+
+@PostMapping("/{stockRecordId}")
+public ConsumptionLog log(@PathVariable Long stockRecordId,
+@RequestBody ConsumptionLog log) {
+return consumptionLogService.logConsumption(stockRecordId, log);
+}
+
+
+@GetMapping("/record/{stockRecordId}")
+public List<ConsumptionLog> logs(@PathVariable Long stockRecordId) {
+return consumptionLogService.getLogsByStockRecord(stockRecordId);
+}
+
+
+@GetMapping("/{id}")
+public ConsumptionLog get(@PathVariable Long id) {
+return consumptionLogService.getLog(id);
+}
 }
