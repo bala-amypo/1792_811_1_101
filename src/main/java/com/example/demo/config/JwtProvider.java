@@ -26,9 +26,7 @@ public class JwtProvider {
         return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
-    // ---------- TOKEN GENERATION ----------
-
-    // Used by test cases
+    
     public String generateToken(String username) {
         return Jwts.builder()
                 .setSubject(username)
@@ -38,7 +36,7 @@ public class JwtProvider {
                 .compact();
     }
 
-    // Used by service
+    
     public String generateToken(String email, Long userId, Set<String> roles) {
         return Jwts.builder()
                 .setSubject(email)
@@ -50,7 +48,7 @@ public class JwtProvider {
                 .compact();
     }
 
-    // ---------- VALIDATION ----------
+    
 
     public boolean validateToken(String token) {
         return !isTokenExpired(token);
@@ -60,7 +58,7 @@ public class JwtProvider {
         return getUsername(token).equals(username) && !isTokenExpired(token);
     }
 
-    // ---------- EXTRACTION ----------
+    
 
     public String getUsername(String token) {
         return extractClaim(token, Claims::getSubject);
