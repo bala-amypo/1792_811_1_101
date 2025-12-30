@@ -17,24 +17,24 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
 
-                // API Info
-                .info(new Info()
-                        .title("JWT Demo API")
-                        .version("1.0")
-                        .description("Simple JWT Demo Project for Students"))
+            .info(new Info()
+                .title("JWT Demo API")
+                .version("1.0")
+                .description("Simple JWT Demo Project for Students"))
 
-                // Server Configuration
-                .servers(List.of(
-                        new Server().url("https://9107.pro604cr.amypo.ai")
-                ))
+            // ✅ Multiple servers (IMPORTANT)
+            .servers(List.of(
+                new Server().url("http://localhost:8080").description("Local"),
+                new Server().url("https://9107.pro604cr.amypo.ai").description("Production")
+            ))
 
-                // Security Configuration (JWT Bearer)
-                .components(new Components()
-                        .addSecuritySchemes("bearerAuth",
-                                new SecurityScheme()
-                                        .type(SecurityScheme.Type.HTTP)
-                                        .scheme("bearer")
-                                        .bearerFormat("JWT")
-                                        .description("Enter JWT token")));
+            // JWT Bearer configuration
+            .components(new Components()
+                .addSecuritySchemes("bearerAuth",
+                    new SecurityScheme()
+                        .type(SecurityScheme.Type.HTTP)
+                        .scheme("bearer")
+                        .bearerFormat("JWT")
+                        .description("Enter JWT token")));
     }
 }
